@@ -1,0 +1,14 @@
+#e.g. "CLL#1 CD38- sub-clones" and "CLL#1 CD38+ sub-clones" are paired
+GSM146300	CLL#1 CD38- sub-clones
+GSM146307	CLL#1 CD38+ sub-clones
+GSM146308	CLL#2 CD38- sub-clones
+GSM146309	CLL#2 CD38+ sub-clones
+GSM146310	CLL#3 CD38- sub-clones
+GSM146311	CLL#3 CD38+ sub-clones
+GSM146312	CLL#4 CD38- sub-clones
+GSM146313	CLL#4 CD38+ sub-clones
+GSM146314	CLL#5 CD38- sub-clones
+GSM146315	CLL#5 CD38+ sub-clones
+GSM146334	CLL#6 CD38- sub-clones
+GSM146335	CLL#6 CD38+ sub-clones
+
