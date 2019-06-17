@@ -71,12 +71,25 @@ Please answer the following questions:
 
 To install this package, start R (version "3.6") and enter:
 
->
 if (!requireNamespace("BiocManager", quietly = TRUE))
+
     install.packages("BiocManager")
+    
 BiocManager::install("limma")
 
->注意以上代码版本需要3.6版本的R，如果提示版本错误而你不想更新R版本的话，可以去官网寻找旧版本R中limma的安装方法
+>注意以上代码版本需要3.6版本的R，如果提示版本错误而你不想更新R版本的话，可以去官网寻找旧版本R中limma的安装方法。
+
+更新R版本的方法：
+
+install.packages("installr")
+
+library(installr)
+
+updateR()
+
+>注意installr最好在R GUI里面安装，Rstudio里安装installr再更新R据说可能遇到bug（没试过不知道真假），如果遇到连不上服务器，原因可能是R设置的镜像不在国内，这里以中科大的开源镜像为例，cran_mirror参数也是CRAN在国内的镜像。
+
+updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/") 
 
 ```{r}
 GDS2676<-read.table("~/data/GDS2676.txt",header = T)
@@ -86,7 +99,9 @@ GDS2676.norm<-normalizeQuantiles(GDS2676)
 boxplot(GDS2676.norm)
 
 ```
+>解释一下基因数据标准化：对基因芯片数据的标准化处理，主要目的是消除由于实验技术所导致的表达量(Intensity) 的变化，并且使各个样本(sample)和平行实验的数据处于相同的水平，从而使我们可以得到 具有生物学意义的基因表达量的变化。
 
+>有人觉得这两个箱线图好像没啥差别，仔细看还是有差别的。标准化主要目的是消除变化，注意和离群点检测有区别，具体不展开了，大家用limma包做标准化即可。
 
 
 2.	Find differentially expressed genes (down-regulated, CD38- < CD38+) between CD38+ and CD38- disease samples, and provide top 20 down-regulated genes. (Hint: n is small, so please use non-parameter test)
@@ -102,11 +117,10 @@ order_names
 
 ```
 
-3.  Usually you are interested in the function indicated by differentially expressed genes, for which 
-GO enrichment is a widely used method. In order to find whether the differentially expression 
-genes (downregulated, p<=0.05) are enriched in “leukocyte activation during immune 
-response” (GO term), please show a conclusive result using fisher exact test. Known genes 
-annotated with this GO are listed in “GO_2_2.txt”
+>seq(1,11,2)作用是生成一个1到11，间隔为2的序列。有人问我这个为什么是配对的，其实这个看题目介绍是能够看出来的（这种数据很多都是配对的）。另外可以看看GEO上对GDS2676的介绍：Analysis of paired CD38(+) and CD38(-) chronic lymphocytic leukemia (CLL) cells from six patients.还有人问我这里面哪个是CD38+哪个是CD38-，这个我看了原文也没看明白，哪位同学看出来了，麻烦说一下。
+
+
+3.  Usually you are interested in the function indicated by differentially expressed genes, for which GO enrichment is a widely used method. In order to find whether the differentially expression genes (downregulated, p<=0.05) are enriched in “leukocyte activation during immune response” (GO term), please show a conclusive result using fisher exact test. Known genes annotated with this GO are listed in “GO_2_2.txt”
 
 ```{r}
 GO<-read.table("~/data/GO_2_2.txt",row.names=1)
@@ -130,7 +144,7 @@ fisher.test(counts)
 ```
 p-value = 0.4593p-value = 0.4593<0.05，不显著富集。
 
->之前有人说这题其实很不严谨，多重假设检验的结果没校正就直接用了，而且 GO 的 193 个基因中，有 13 个是 GDS2676.txt 中的基因所没有的。但是大家还是按题目要求做吧。
+>之前有人说这题其实很不严谨，多重假设检验的结果没校正就直接用了，而且 GO 的 193 个基因中，有 13 个是 GDS2676.txt 中的基因所没有的。既然题目标准是0.05，大家还是按题目要求做吧，自己实际分析基因的时候注意多重校正。多重校正怎么做可以看看2018年或2017年的第五题。
 
 ## 第四题
 
@@ -309,7 +323,7 @@ cor.test(x,y)
 
 ## Question 4
 
-A certain protein A was investigated as predictor of lung cancer patients priognostic. They gathered data of patients and healthy people from three hospitals, including the expression level of protein A together with the expression level of β-actin-a house keeping gene, their survival time after diagnosis and others. The data can be found in '' lung_cancer.txt”. See ''instruction.pdf” for data details (R code required).  (本题共15分)
+A certain protein A was investigated as predictor of lung cancer patients priognostic. They gathered data of patients and healthy people from three hospitals, including the expression level of protein A together with the expression level of β-actin-a house keeping gene, their survival time after diagnosis and others. The data can be found in “lung_cancer.txt”. See “instruction.pdf” for data details (R code required).  (本题共15分)
 
 Status: 0‐healthy; 1‐disease
 
@@ -324,6 +338,10 @@ Gender: 0-female; 1-male Smoke: 0-nonsmoker; 1-smoker Drink: 0-do not drink or d
 Survival_status: only patients are actually observed, 0-censored; 1‐death observed
 
 (1)Conduct one-way ANOVA to examine whether the source of data could have impact on the expression level of protein A. Hint: check the homogeneity of variances before ANOVA(8分)
+
+H0:服从正态分布
+
+H1:不服从正态分布
 
 ```{r}
 lung_cancer_data<-read.table('~/data/lung_cancer.txt',header = T)
