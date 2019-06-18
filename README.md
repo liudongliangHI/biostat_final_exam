@@ -1,15 +1,7 @@
----
-title: "生物统计学期末复习——2015年至2018年期末考试真题"
-author: "计算所-刘栋梁"
-date: "2019/6/1"
-output: 
-  html_document: 
-    keep_md: yes
-    number_sections: yes
-    theme: spacelab
-    toc: yes
----
 
+# 生物统计学期末复习——2015年至2018年期末考试真题"
+### 计算所-刘栋梁
+### 2019/6/1"
 
 # Preface
 
@@ -21,7 +13,7 @@ output:
 
 这份资料中肯定有错误和不详尽的地方，欢迎大家指正和补充。
 
-# 2018 final exam
+# final exam
 
 ## Question 2 : Acute Keshan disease
 
@@ -507,7 +499,7 @@ dim(protein_adjust_screen)
 ```
 
 
-# 2017 final exam
+# final exam
 
 2016级第二学期《生物统计学》期末考试试题
 
@@ -944,7 +936,7 @@ names(sort(sig.p.fdr))
 ## [1] "SEMA5B"   "BC048403"
 ```
 
-# 2016 final exam
+# final exam
 
 ## Question 1
 
@@ -966,7 +958,7 @@ names(sort(sig.p.fdr))
 
 空，资料中没这题。
 
-# 2015 final exam
+# final exam
 
 ## Question 1
 
