@@ -6,12 +6,12 @@ output:
   html_document: 
     keep_md: yes
     number_sections: yes
-    theme: cerulean
+    theme: spacelab
     toc: yes
 ---
 
 
-# 前言
+# Preface
 
 对生物统计学复习过程做一个笔记，主要以2015年至2018年考试真题为主，并没有写很多描述性的结论，考试的时候大家酌情添加吧。
 
@@ -21,9 +21,9 @@ output:
 
 这份资料中肯定有错误和不详尽的地方，欢迎大家指正和补充。
 
-# 2018年期末考试真题
+# 2018 final exam
 
-## 第二题
+## Question 2
 
 Researchers want to analyze the symptoms of Acute Keshan disease in a place. The result of phosphorus content (mg%) in patients and healthy people is shown in “keshan_disease.txt”，in which column 1 represents phosphorus content of patients and column 2 represents that of healthy people. We want to know if the phosphorus contents (mg%) in patients and healthy people are significantly different. (Describe the steps, give the R code and results calculated with R，本题共25分）
 
@@ -130,7 +130,7 @@ wilcox.test(K_d_data$patient,K_d_data$healthy,paired = F,exact = F)
 
 结论：p-value = 1.358e-05，拒绝原假设，接受备择假设，两样本均值之间有差异。
 
-## 第三题
+## Question 3
 
 一．CD38 expression is an important prognostic marker in CLL with high levels of CD38 associated with shorter overall survival. In this study, we used gene expression profiling and protein analysis of highly purified cell-sorted CD38+ and CD38- chronic lymphocytic leukemia cells to elucidate a molecular basis for the association between CD38 expression and inferior clinical outcome.
 
@@ -220,7 +220,29 @@ order_names
 ## [19] "PPM1F"    "CCNA2"
 ```
 
->seq(1,11,2)作用是生成一个1到11，间隔为2的序列。有人问我这个为什么是配对的，其实这个看题目介绍是能够看出来的（这种数据很多都是配对的）。另外可以看看GEO上对GDS2676的介绍：Analysis of paired CD38(+) and CD38(-) chronic lymphocytic leukemia (CLL) cells from six patients.还有人问我这里面哪个是CD38+哪个是CD38-，这个我看了原文也没看明白，哪位同学看出来了，麻烦说一下。
+>seq(1,11,2)作用是生成一个1到11，间隔为2的序列。有人问我这个为什么是配对的，还有人问我这里面哪个是CD38+哪个是CD38-,其实这个看GDS2676_sample.txt就行,里面有介绍。
+
+
+```r
+readLines(file("./data/GDS2676_sample.txt"))
+```
+
+```
+##  [1] "#e.g. \"CLL#1 CD38- sub-clones\" and \"CLL#1 CD38+ sub-clones\" are paired"
+##  [2] "GSM146300\tCLL#1 CD38- sub-clones"                                         
+##  [3] "GSM146307\tCLL#1 CD38+ sub-clones"                                         
+##  [4] "GSM146308\tCLL#2 CD38- sub-clones"                                         
+##  [5] "GSM146309\tCLL#2 CD38+ sub-clones"                                         
+##  [6] "GSM146310\tCLL#3 CD38- sub-clones"                                         
+##  [7] "GSM146311\tCLL#3 CD38+ sub-clones"                                         
+##  [8] "GSM146312\tCLL#4 CD38- sub-clones"                                         
+##  [9] "GSM146313\tCLL#4 CD38+ sub-clones"                                         
+## [10] "GSM146314\tCLL#5 CD38- sub-clones"                                         
+## [11] "GSM146315\tCLL#5 CD38+ sub-clones"                                         
+## [12] "GSM146334\tCLL#6 CD38- sub-clones"                                         
+## [13] "GSM146335\tCLL#6 CD38+ sub-clones"                                         
+## [14] ""
+```
 
 
 3.  Usually you are interested in the function indicated by differentially expressed genes, for which GO enrichment is a widely used method. In order to find whether the differentially expression genes (downregulated, p<=0.05) are enriched in “leukocyte activation during immune response” (GO term), please show a conclusive result using fisher exact test. Known genes annotated with this GO are listed in “GO_2_2.txt”
@@ -307,7 +329,7 @@ p-value = 0.4593p-value = 0.4593<0.05，不显著富集。
 
 >之前有人说这题其实很不严谨，多重假设检验的结果没校正就直接用了，而且 GO 的 193 个基因中，有 13 个是 GDS2676.txt 中的基因所没有的。既然题目标准是0.05，大家还是按题目要求做吧，自己实际分析基因的时候注意多重校正。多重校正怎么做可以看看2018年或2017年的第五题。
 
-## 第四题
+## Question 4
 
 五、数据文件“Drivers.csv”为对45名司机的调查结果，其中四个变量的含义为：
 
@@ -438,7 +460,7 @@ testdata_p
 
 >注意评分标准认为用（1）的模型计算不得分，但若能够正确调用predict()的可得5分。虽然两个模型没有差异，但是其他指标对事故概率其实没有影响，所以应该用（2）的模型计算概率。（个人理解）
 
-## 第五题
+## Question 5
 
 文件protein.csv是15 只小鼠随机分为3组并且分别经历A（安慰剂）、B药物、C药物处理后（见下表）某个组织的蛋白质组数据，请做一下分析。
 
@@ -453,7 +475,7 @@ protein_norm<-apply(protein,2, function(x){x/mean(x)})
 boxplot(log10(protein_norm))
 ```
 
-![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 （2）首先对原始数据进行标准化（每列除以各自均值），再用方差分析(不做正态性以及方差齐性检验)筛选差异表达基因（p-value <0.05）并显示其数量。（10 分）
 
@@ -485,9 +507,8 @@ dim(protein_adjust_screen)
 ```
 
 
+# 2017 final exam
 
-
-# 2017年期末考试真题
 2016级第二学期《生物统计学》期末考试试题
 
 2017年6月16日1:30-4:30
@@ -591,7 +612,7 @@ plot(y~x)
 abline(myfit)
 ```
 
-![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ```r
 summary(myfit)
@@ -770,7 +791,9 @@ summary(ff)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-结论：P-value = 1.2e-12 因此接受备择假设，不同数据来源对蛋白A的表达水平有影响
+结论：P-value = 1.2e-12
+
+因此接受备择假设，不同数据来源对蛋白A的表达水平有影响
 
 
 ```r
@@ -921,39 +944,39 @@ names(sort(sig.p.fdr))
 ## [1] "SEMA5B"   "BC048403"
 ```
 
-# 2016年期末考试
+# 2016 final exam
 
-## 第一题
+## Question 1
 
 同2017年第四题
 
-## 第二题
+## Question 2
 
 空，资料中没这题。
 
-## 第三题
+## Question 3
 
 同2018年第三题
 
-## 第四题
+## Question 4
 
 同2018年第二题
 
-## 第五题
+## Question 5
 
 空，资料中没这题。
 
-# 2015年期末考试
+# 2015 final exam
 
-## 第一题
+## Question 1
 
 同2018年第三题
 
-## 第二题
+## Question 2
 
 同2017年第三题
 
-## 第三题
+## Question 3
 
 This question needs to use data "datasets.txt", which derives from a microarray dataset investigating gene e ression of certain disease. The data has been processed,and the first row of the data is the sample serial number,namely,S1 - S20, and the first column of the data is the genes (G1- G1OO). The numbers are the expression values of each gene.Please answer the following questions (R code required)
 
@@ -967,7 +990,7 @@ dataset <- as.matrix(dataset)
 plot(density(as.numeric(dataset[3,])))
 ```
 
-![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ```r
 pdf("fil.pdf")#在工作目录下输出pdf文件
@@ -1011,22 +1034,63 @@ Please draw a boxplot to compare the distribution of all genes expression among 
 boxplot(dataset)
 ```
 
-![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 ```r
-dataset[dataset > 100] <- NA
-boxplot(dataset)
+dataset_re <- dataset
+dataset_re[dataset_re > 100] <- NA
+boxplot(dataset_re)
 ```
 
-![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-25-2.png)<!-- -->
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-26-2.png)<!-- -->
 
 可以明显看出离群点，以及删除离群点之后的变化。
 
-## 第四题
+离群点检测与处理：
+
+其实数据科学中离群点的问题可以专门讨论，里面涉及到的方法很多，在这里不过多介绍了。有兴趣的同学可以自己检索一下。
+
+在刚才的箱线图中，其实除去上面两个特别离谱的那两个数据外，下面那些点也是离群点。不过这些点离群不严重，又基本每个样本都有,很难说这个是离群点还是误差。不过既然要删除离群值那就删了吧。
+
+
+```r
+# 只是不看离群值的话，画图的时候设置一下就行。
+boxplot(dataset,outline=FALSE)
+```
+
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+
+```r
+# 非要删除离群值再重新作图也不是不可以。
+gene_boxplot <- boxplot(dataset[,1:20])
+```
+
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-27-2.png)<!-- -->
+
+```r
+outlier <- gene_boxplot$out
+na.omit(outlier)
+```
+
+```
+##  [1]   4.911692   5.035624   5.161888   5.426265   4.963474   4.560715
+##  [7]   4.364572   3.560715   4.112700 105.000000   4.930737 105.000000
+## [13]   4.827819   4.705978   5.545351   4.465974   5.281698   4.336283
+## [19]   4.536053   4.213347   5.617651   4.807355   4.981853   5.244126
+## [25]   4.590961   4.963474   4.986411
+```
+
+```r
+boxplot(gene_boxplot$stats)
+```
+
+![](biostatistics_final_exam_notebook_files/figure-html/unnamed-chunk-27-3.png)<!-- -->
+
+## Question 4
 
 同2017年第四题
 
-## 第五题
+## Question 5
 
 >和2017年第五题很类似，可能2017年就是从2015年的题改的。
 
