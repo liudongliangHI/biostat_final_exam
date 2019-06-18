@@ -13,7 +13,7 @@
 
 这份资料中肯定有错误和不详尽的地方，欢迎大家指正和补充。
 
-# final exam
+# 2018 final exam
 
 ## Question 2 : Acute Keshan disease
 
@@ -499,7 +499,7 @@ dim(protein_adjust_screen)
 ```
 
 
-# final exam
+# 2017 final exam
 
 2016级第二学期《生物统计学》期末考试试题
 
@@ -936,7 +936,7 @@ names(sort(sig.p.fdr))
 ## [1] "SEMA5B"   "BC048403"
 ```
 
-# final exam
+# 2016 final exam
 
 ## Question 1
 
@@ -958,7 +958,7 @@ names(sort(sig.p.fdr))
 
 空，资料中没这题。
 
-# final exam
+# 2016 final exam
 
 ## Question 1
 
