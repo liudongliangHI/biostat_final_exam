@@ -1,5 +1,5 @@
 
-# 生物统计学期末复习——2015年至2018年期末考试真题"
+# 生物统计学期末复习——2015年至2018年期末考试真题
 ### 计算所-刘栋梁
 ### 2019/6/1
 
@@ -71,16 +71,16 @@ var.test(K_d_data$patient,K_d_data$healthy,alternative = 'two.sided')
 ```
 
 ```
-## 
+##
 ## 	F test to compare two variances
-## 
+##
 ## data:  K_d_data$patient and K_d_data$healthy
 ## F = 0.664, num df = 39, denom df = 39, p-value = 0.2055
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
 ##  0.3511884 1.2554349
 ## sample estimates:
-## ratio of variances 
+## ratio of variances
 ##          0.6639987
 ```
 p-value = 0.2055> 0.05 所以接受原假设，方差相等。
@@ -91,16 +91,16 @@ t.test(K_d_data$patient,K_d_data$healthy,var.equal = T,alternative = 'two.sided'
 ```
 
 ```
-## 
+##
 ## 	Two Sample t-test
-## 
+##
 ## data:  K_d_data$patient and K_d_data$healthy
 ## t = 4.8947, df = 78, p-value = 5.2e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  0.7690202 1.8234798
 ## sample estimates:
-## mean of x mean of y 
+## mean of x mean of y
 ##   4.65150   3.35525
 ```
 P<0.05,拒绝原假设，接受备择假设，两样本均值之间有差异。
@@ -112,9 +112,9 @@ wilcox.test(K_d_data$patient,K_d_data$healthy,paired = F,exact = F)
 ```
 
 ```
-## 
+##
 ## 	Wilcoxon rank sum test with continuity correction
-## 
+##
 ## data:  K_d_data$patient and K_d_data$healthy
 ## W = 1252.5, p-value = 1.358e-05
 ## alternative hypothesis: true location shift is not equal to 0
@@ -139,7 +139,7 @@ To install this package, start R (version "3.6") and enter:
 if (!requireNamespace("BiocManager", quietly = TRUE))
 
   install.packages("BiocManager")
-    
+
 BiocManager::install("limma")
 
 >注意以上代码版本需要3.6版本的R，如果提示版本错误而你不想更新R版本的话，可以去官网寻找旧版本R中limma的安装方法。
@@ -154,7 +154,7 @@ updateR()
 
 >注意installr最好在R GUI里面安装，Rstudio里安装installr再更新R据说可能遇到bug（没试过不知道真假），如果遇到连不上服务器，原因可能是R设置的镜像不在国内，这里以中科大的开源镜像为例，cran_mirror参数也是CRAN在国内的镜像。
 
-updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/") 
+updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/")
 
 
 ```r
@@ -194,7 +194,7 @@ head(p.value)
 ```
 
 ```
-##       DDR1       RFC2      HSPA6       PAX8     GUCA1A       UBA7 
+##       DDR1       RFC2      HSPA6       PAX8     GUCA1A       UBA7
 ## 0.85274630 0.04674624 0.20083908 0.26468405 0.50000000 0.79916092
 ```
 
@@ -207,7 +207,7 @@ order_names
 
 ```
 ##  [1] "HNRNPA1"  "HNRNPU"   "CTNNA1"   "DSTN"     "RAB6A"    "RRBP1"   
-##  [7] "PLS3"     "CST3"     "ID2"      "DLG5"     "NDUFS3"   "PPP2R5C" 
+##  [7] "PLS3"     "CST3"     "ID2"      "DLG5"     "NDUFS3"   "PPP2R5C"
 ## [13] "LEPROT"   "DHRS3"    "H2AFV"    "SERPINA1" "SLC16A3"  "LOXL2"   
 ## [19] "PPM1F"    "CCNA2"
 ```
@@ -305,16 +305,16 @@ fisher.test(counts)
 ```
 
 ```
-## 
+##
 ## 	Fisher's Exact Test for Count Data
-## 
+##
 ## data:  counts
 ## p-value = 0.4593
 ## alternative hypothesis: true odds ratio is not equal to 1
 ## 95 percent confidence interval:
 ##  0.6036833 2.4446923
 ## sample estimates:
-## odds ratio 
+## odds ratio
 ##   1.288372
 ```
 p-value = 0.4593p-value = 0.4593<0.05，不显著富集。
@@ -345,14 +345,14 @@ summary(fit.full)
 ```
 
 ```
-## 
+##
 ## Call:
 ## glm(formula = y ~ x1 + x2 + x3, family = binomial, data = drivers)
-## 
-## Deviance Residuals: 
+##
+## Deviance Residuals:
 ##     Min       1Q   Median       3Q      Max  
 ## -1.5636  -0.9131  -0.7892   0.9637   1.6000  
-## 
+##
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(>|z|)  
 ## (Intercept)  0.597610   0.894831   0.668   0.5042  
@@ -361,13 +361,13 @@ summary(fit.full)
 ## x3           0.315865   0.701093   0.451   0.6523  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
+##
 ## (Dispersion parameter for binomial family taken to be 1)
-## 
+##
 ##     Null deviance: 62.183  on 44  degrees of freedom
 ## Residual deviance: 57.026  on 41  degrees of freedom
 ## AIC: 65.026
-## 
+##
 ## Number of Fisher Scoring iterations: 4
 ```
 
@@ -385,27 +385,27 @@ summary(fit.full_re)
 ```
 
 ```
-## 
+##
 ## Call:
 ## glm(formula = y ~ x1, family = binomial, data = drivers)
-## 
-## Deviance Residuals: 
+##
+## Deviance Residuals:
 ##     Min       1Q   Median       3Q      Max  
 ## -1.4490  -0.8782  -0.8782   0.9282   1.5096  
-## 
+##
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)  
 ## (Intercept)   0.6190     0.4688   1.320   0.1867  
 ## x1           -1.3728     0.6353  -2.161   0.0307 *
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
+##
 ## (Dispersion parameter for binomial family taken to be 1)
-## 
+##
 ##     Null deviance: 62.183  on 44  degrees of freedom
 ## Residual deviance: 57.241  on 43  degrees of freedom
 ## AIC: 61.241
-## 
+##
 ## Number of Fisher Scoring iterations: 4
 ```
 
@@ -417,7 +417,7 @@ anova(fit.full,fit.full_re,test = "Chisq")
 
 ```
 ## Analysis of Deviance Table
-## 
+##
 ## Model 1: y ~ x1 + x2 + x3
 ## Model 2: y ~ x1
 ##   Resid. Df Resid. Dev Df Deviance Pr(>Chi)
@@ -443,7 +443,7 @@ testdata_p
 ```
 
 ```
-##    1    2 
+##    1    2
 ## 0.65 0.32
 ```
 
@@ -511,11 +511,11 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 1. If we take out a ball **without replacement** every time, what’s the probability that there is only one white ball after 4 balls are taken out? (5分）
 
-> = 4 x 8 x 7 x 6 x 3 /(11 x 10 x 9 x 8) 
+> = 4 x 8 x 7 x 6 x 3 /(11 x 10 x 9 x 8)
 
 2. If we take out a ball **with replacement** every time, what’s the probability that there is only one white ball after 4 balls are taken out? (5分）
 
-> = 4 x 8 x 8 x 8 x 3/(11 x 11 x 11 x 11) 
+> = 4 x 8 x 8 x 8 x 3/(11 x 11 x 11 x 11)
 
 3. If we take out a ball **without replacement** every time, what’s the probability that the colors of the taken balls are black, white, white, and black in sequence after 4 balls are taken out? (5分）
 
@@ -523,7 +523,7 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 4. If we take out a ball **with replacement** every time, what’s the probability that the colors of the taken balls are black, white, white, and black in sequence after 4 balls are taken out? (5分）
 
-> = 8 x 3 x 3 x 8 /(11 x 11 x 11 x 11) 
+> = 8 x 3 x 3 x 8 /(11 x 11 x 11 x 11)
 
 > 注意放回与不放回的区别
 
@@ -611,23 +611,23 @@ summary(myfit)
 ```
 
 ```
-## 
+##
 ## Call:
 ## lm(formula = y ~ x, data = anemia_data)
-## 
+##
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -467.91 -113.60   41.44  115.93  384.02 
-## 
+##     Min      1Q  Median      3Q     Max
+## -467.91 -113.60   41.44  115.93  384.02
+##
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
 ## (Intercept)  -183.54     119.76  -1.533    0.137    
 ## x             511.49      16.58  30.844   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
+##
 ## Residual standard error: 204.4 on 28 degrees of freedom
-## Multiple R-squared:  0.9714,	Adjusted R-squared:  0.9704 
+## Multiple R-squared:  0.9714,	Adjusted R-squared:  0.9704
 ## F-statistic: 951.3 on 1 and 28 DF,  p-value: < 2.2e-16
 ```
 
@@ -649,16 +649,16 @@ cor.test(x,y)
 ```
 
 ```
-## 
+##
 ## 	Pearson's product-moment correlation
-## 
+##
 ## data:  x and y
 ## t = 30.844, df = 28, p-value < 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.9696296 0.9932023
 ## sample estimates:
-##       cor 
+##       cor
 ## 0.9856011
 ```
 
@@ -712,9 +712,9 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='1'])
 ```
 
 ```
-## 
+##
 ## 	Shapiro-Wilk normality test
-## 
+##
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "1"]
 ## W = 0.99125, p-value = 0.7648
 ```
@@ -724,9 +724,9 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='2'])
 ```
 
 ```
-## 
+##
 ## 	Shapiro-Wilk normality test
-## 
+##
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "2"]
 ## W = 0.96509, p-value = 0.1452
 ```
@@ -736,9 +736,9 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='3'])
 ```
 
 ```
-## 
+##
 ## 	Shapiro-Wilk normality test
-## 
+##
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "3"]
 ## W = 0.97516, p-value = 0.3702
 ```
@@ -753,9 +753,9 @@ bartlett.test(lung_cancer_data$exp_A~as.factor(lung_cancer_data$hospital),data =
 ```
 
 ```
-## 
+##
 ## 	Bartlett test of homogeneity of variances
-## 
+##
 ## data:  lung_cancer_data$exp_A by as.factor(lung_cancer_data$hospital)
 ## Bartlett's K-squared = 1.5481, df = 2, p-value = 0.4611
 ```
@@ -795,9 +795,9 @@ TukeyHSD(ff)#查看交互作用
 ```
 ##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
-## 
+##
 ## Fit: aov(formula = lung_cancer_data$exp_A ~ as.factor(lung_cancer_data$hospital), data = lung_cancer_data)
-## 
+##
 ## $`as.factor(lung_cancer_data$hospital)`
 ##         diff      lwr      upr     p adj
 ## 2-1 -33.3103 -44.1758 -22.4448 0.0000000
@@ -828,28 +828,28 @@ summary(glm_fit)
 ```
 
 ```
-## 
+##
 ## Call:
-## glm(formula = new_data$status ~ new_data$abnormal, family = binomial(), 
+## glm(formula = new_data$status ~ new_data$abnormal, family = binomial(),
 ##     data = new_data)
-## 
-## Deviance Residuals: 
+##
+## Deviance Residuals:
 ##     Min       1Q   Median       3Q      Max  
 ## -1.7847  -1.2403   0.6744   0.6744   1.1158  
-## 
+##
 ## Coefficients:
 ##                   Estimate Std. Error z value Pr(>|z|)   
 ## (Intercept)         0.1466     0.3132   0.468  0.63971   
 ## new_data$abnormal   1.2186     0.4502   2.707  0.00679 **
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
+##
 ## (Dispersion parameter for binomial family taken to be 1)
-## 
+##
 ##     Null deviance: 123.82  on 99  degrees of freedom
 ## Residual deviance: 116.22  on 98  degrees of freedom
 ## AIC: 120.22
-## 
+##
 ## Number of Fisher Scoring iterations: 4
 ```
 
@@ -893,8 +893,8 @@ table(is.na(GDS4013_data))# 检查缺失值
 ```
 
 ```
-## 
-##  FALSE   TRUE 
+##
+##  FALSE   TRUE
 ## 481694      4
 ```
 
@@ -905,8 +905,8 @@ table(is.na(GDS4013_new))#检验去除缺失值的效果
 ```
 
 ```
-## 
-##  FALSE 
+##
+##  FALSE
 ## 481626
 ```
 
@@ -915,7 +915,7 @@ table(is.na(GDS4013_new))#检验去除缺失值的效果
 先F检验，再用t检验（若样本数太少则用非参数检验wilcox.test()
 
 ```r
-p.vartest <- apply(GDS4013_new, 1, function(x)var.test(x[1:10],x[11:18])$p.value) 
+p.vartest <- apply(GDS4013_new, 1, function(x)var.test(x[1:10],x[11:18])$p.value)
 GDS4013_new_data <- cbind(GDS4013_new, p.vartest)
 # 按题目要求取单尾 x[1:10] < x[11:18],alternative = 'less'
 p.value <- apply(GDS4013_new_data, 1, function(x)t.test(x[1:10],x[11:18],alternative = 'less', var.equal = (x[19] >= 0.05))$p.value)
@@ -972,7 +972,7 @@ names(sort(sig.p.fdr))
 
 This question needs to use data "datasets.txt", which derives from a microarray dataset investigating gene e ression of certain disease. The data has been processed,and the first row of the data is the sample serial number,namely,S1 - S20, and the first column of the data is the genes (G1- G1OO). The numbers are the expression values of each gene.Please answer the following questions (R code required)
 
-Please draw a density plot (PDF) to investigate the distribution G3 gene expression among 20 samples, and then calculate its minimum, median and variance using certain function in R. ( 10 分) 
+Please draw a density plot (PDF) to investigate the distribution G3 gene expression among 20 samples, and then calculate its minimum, median and variance using certain function in R. ( 10 分)
 
 
 ```r
@@ -991,7 +991,7 @@ dev.off()
 ```
 
 ```
-## png 
+## png
 ##   2
 ```
 
@@ -1019,7 +1019,7 @@ var(dataset[3,])
 ## [1] 0.3880644
 ```
 
-Please draw a boxplot to compare the distribution of all genes expression among 20 different samples. Note that you should check whether there are any outliers in them? If they really exist, please delete them and redo it. (10 分) 
+Please draw a boxplot to compare the distribution of all genes expression among 20 different samples. Note that you should check whether there are any outliers in them? If they really exist, please delete them and redo it. (10 分)
 
 
 ```r
@@ -1086,7 +1086,7 @@ boxplot(gene_boxplot$stats)
 
 >和2017年第五题很类似，可能2017年就是从2015年的题改的。
 
-5. Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetas, suggesting an important role of adipose tissue in the pathogenesis of NASH.Therefore, the mouse model was used to investigate the interaction between adipose tissure and liver.Wildtype male C57B1/6 mice were were fed LFD or HFD for 21 weeks,and the mice were divided into 4 groups based on liver histology and food fed. The detailed data can be found in GDS4013.txt, GDS4013_sample.txt and methylation.txt. (The analysis should be performed in R) 
+5. Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetas, suggesting an important role of adipose tissue in the pathogenesis of NASH.Therefore, the mouse model was used to investigate the interaction between adipose tissure and liver.Wildtype male C57B1/6 mice were were fed LFD or HFD for 21 weeks,and the mice were divided into 4 groups based on liver histology and food fed. The detailed data can be found in GDS4013.txt, GDS4013_sample.txt and methylation.txt. (The analysis should be performed in R)
 
 (l) Read in and normalize the data. Please check whether there is any "NA" in them? If so you will need to deal with them.
 
@@ -1100,8 +1100,8 @@ table(is.na(GDS43013))
 ```
 
 ```
-## 
-##  FALSE 
+##
+##  FALSE
 ## 481698
 ```
 
@@ -1110,8 +1110,8 @@ table(is.na(methylation))
 ```
 
 ```
-## 
-## FALSE 
+##
+## FALSE
 ## 53522
 ```
 
@@ -1145,7 +1145,7 @@ rownames(GDS43013)[order(GDS43013$pvalue)[1:20]]
 ## [13] "LOC100504952"  "MTNR1A"        "PARK7"         "CLSTN3"       
 ## [17] "OCIAD2"        "DEFB35"        "HEXDC"         "FABP2"
 ```
-(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the 
+(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the
 DEGs, and use t-test to check it.
 
 ```r
@@ -1153,7 +1153,7 @@ set.seed(20190614)
 # 注意是随机抽样，每个人的结果可能有不同的地方。
 deg <- sample(rownames(GDS43013[GDS43013$pvalue < 0.05,]),size = 20)
 ndeg <- sample(rownames(GDS43013[GDS43013$pvalue > 0.05,]),size = 20)
-deg <- data.frame(name = deg,meth = 
+deg <- data.frame(name = deg,meth =
                     methylation$V2[match(deg,methylation$V1)])
 ndeg <- data.frame(name = ndeg,meth =
                    methylation$V2[match(ndeg,methylation$V1)])
@@ -1161,16 +1161,16 @@ var.test(deg$meth,ndeg$meth)
 ```
 
 ```
-## 
+##
 ## 	F test to compare two variances
-## 
+##
 ## data:  deg$meth and ndeg$meth
 ## F = 2.6794, num df = 19, denom df = 19, p-value = 0.03754
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
 ##  1.060535 6.769346
 ## sample estimates:
-## ratio of variances 
+## ratio of variances
 ##            2.67939
 ```
 
@@ -1179,16 +1179,16 @@ t.test(deg$meth,ndeg$meth,var.equal = var.test(deg$meth,ndeg$meth)$p.value	>=	0.
 ```
 
 ```
-## 
+##
 ## 	Welch Two Sample t-test
-## 
+##
 ## data:  deg$meth and ndeg$meth
 ## t = 2.19, df = 31.448, p-value = 0.03606
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  0.01194761 0.33315141
 ## sample estimates:
-## mean of x mean of y 
+## mean of x mean of y
 ## 0.5849530 0.4124035
 ```
 
@@ -1213,16 +1213,16 @@ power.t.test(n = 20,delta = mean(deg$met) - mean(ndeg$meth),
 ```
 
 ```
-## 
-##      Two-sample t test power calculation 
-## 
+##
+##      Two-sample t test power calculation
+##
 ##               n = 20
 ##           delta = 0.1725495
 ##              sd = 0.2491581
 ##       sig.level = 0.05
 ##           power = 0.5692488
 ##     alternative = two.sided
-## 
+##
 ## NOTE: n is number in *each* group
 ```
 
