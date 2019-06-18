@@ -23,7 +23,7 @@ output:
 
 # 2018 final exam
 
-## Question 2
+## Question 2 : Acute Keshan disease
 
 Researchers want to analyze the symptoms of Acute Keshan disease in a place. The result of phosphorus content (mg%) in patients and healthy people is shown in “keshan_disease.txt”，in which column 1 represents phosphorus content of patients and column 2 represents that of healthy people. We want to know if the phosphorus contents (mg%) in patients and healthy people are significantly different. (Describe the steps, give the R code and results calculated with R，本题共25分）
 
@@ -31,7 +31,7 @@ Researchers want to analyze the symptoms of Acute Keshan disease in a place. The
 
 
 ```r
-K_d_data<-read.table('~/data/Keshan_disease.txt',header = T)
+K_d_data<-read.table('./data/Keshan_disease.txt',header = T)
 head(K_d_data)
 ```
 
@@ -130,7 +130,7 @@ wilcox.test(K_d_data$patient,K_d_data$healthy,paired = F,exact = F)
 
 结论：p-value = 1.358e-05，拒绝原假设，接受备择假设，两样本均值之间有差异。
 
-## Question 3
+## Question 3 : CD38 expression
 
 一．CD38 expression is an important prognostic marker in CLL with high levels of CD38 associated with shorter overall survival. In this study, we used gene expression profiling and protein analysis of highly purified cell-sorted CD38+ and CD38- chronic lymphocytic leukemia cells to elucidate a molecular basis for the association between CD38 expression and inferior clinical outcome.
 
@@ -166,7 +166,7 @@ updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/")
 
 
 ```r
-GDS2676<-read.table("~/data/GDS2676.txt",header = T)
+GDS2676<-read.table("./data/GDS2676.txt",header = T)
 boxplot(GDS2676)
 ```
 
@@ -249,7 +249,7 @@ readLines(file("./data/GDS2676_sample.txt"))
 
 
 ```r
-GO<-read.table("~/data/GO_2_2.txt",row.names=1)
+GO<-read.table("./data/GO_2_2.txt",row.names=1)
 GO.name<-row.names(GO)
 N.total<-nrow(GDS2676.norm);N.total
 ```
@@ -329,7 +329,7 @@ p-value = 0.4593p-value = 0.4593<0.05，不显著富集。
 
 >之前有人说这题其实很不严谨，多重假设检验的结果没校正就直接用了，而且 GO 的 193 个基因中，有 13 个是 GDS2676.txt 中的基因所没有的。既然题目标准是0.05，大家还是按题目要求做吧，自己实际分析基因的时候注意多重校正。多重校正怎么做可以看看2018年或2017年的第五题。
 
-## Question 4
+## Question 4 : Drivers
 
 五、数据文件“Drivers.csv”为对45名司机的调查结果，其中四个变量的含义为：
 
@@ -347,7 +347,7 @@ p-value = 0.4593p-value = 0.4593<0.05，不显著富集。
 
 
 ```r
-drivers<-read.csv("~/data/Drivers.csv",header = T,sep = ",")
+drivers<-read.csv("./data/Drivers.csv",header = T,sep = ",")
 fit.full<-glm(y~x1+x2+x3, data=drivers, family=binomial)
 summary(fit.full)
 ```
@@ -460,7 +460,7 @@ testdata_p
 
 >注意评分标准认为用（1）的模型计算不得分，但若能够正确调用predict()的可得5分。虽然两个模型没有差异，但是其他指标对事故概率其实没有影响，所以应该用（2）的模型计算概率。（个人理解）
 
-## Question 5
+## Question 5 : protein
 
 文件protein.csv是15 只小鼠随机分为3组并且分别经历A（安慰剂）、B药物、C药物处理后（见下表）某个组织的蛋白质组数据，请做一下分析。
 
@@ -469,7 +469,7 @@ testdata_p
 
 ```r
 #protein
-protein<-read.csv("~/data/protein.csv",sep = ",",header = T,row.names = 1)
+protein<-read.csv("./data/protein.csv",sep = ",",header = T,row.names = 1)
 #Q1 标准化，绘制箱线图
 protein_norm<-apply(protein,2, function(x){x/mean(x)})
 boxplot(log10(protein_norm))
@@ -513,7 +513,7 @@ dim(protein_adjust_screen)
 
 2017年6月16日1:30-4:30
 
-## Question 1
+## Question 1 : white balls
 
 There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
@@ -539,7 +539,7 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 同2018年第二题。
 
-## Question 3
+## Question 3 : anemia.txt
 Data given in dataset “anemia.txt”are the aplastic anemia data of 30 patients. We want to dig in the relationship between reticutyte and lymphocyte using linear regression model. Note that lymphocyte is the response variable. (本题共20分)
 
 Note that you should give the formulas for calculation of the statistical values and the correlation coefficient. Hint:_the calculations can be performed with R.
@@ -555,7 +555,7 @@ $$\beta=L_{xy}/L_{xx}$$
 
 
 ```r
-anemia_data<-read.table('~/data/anemia.txt',header = T,sep = "")
+anemia_data<-read.table('./data/anemia.txt',header = T,sep = "")
 head(anemia_data)
 ```
 
@@ -670,7 +670,7 @@ cor.test(x,y)
 ## 0.9856011
 ```
 
-## Question 4
+## Question 4 : lung cancer
 
 A certain protein A was investigated as predictor of lung cancer patients priognostic. They gathered data of patients and healthy people from three hospitals, including the expression level of protein A together with the expression level of β-actin-a house keeping gene, their survival time after diagnosis and others. The data can be found in “lung_cancer.txt”. See “instruction.pdf” for data details (R code required).  (本题共15分)
 
@@ -694,7 +694,7 @@ H1:不服从正态分布
 
 
 ```r
-lung_cancer_data<-read.table('~/data/lung_cancer.txt',header = T)
+lung_cancer_data<-read.table('./data/lung_cancer.txt',header = T)
 head(lung_cancer_data)
 ```
 
@@ -861,13 +861,13 @@ summary(glm_fit)
 ## Number of Fisher Scoring iterations: 4
 ```
 
-## Question 5
+## Question 5 : NASH 2017
 Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetes, suggesting an important role of adipose tissue in the pathogenesis of NASH. Therefore, the mouse model was used to investigate the interaction between adipose tissue and liver. Wildtype male C57Bl/6 mice were fed low fat food (LFD) or high fat food (HFD) for 21 weeks. The detailed data can be found in GDS4013.txt. Hint: provide the R code and result calculated with R. （本题共20分）
 
 1.Read the data. Check whether there are NAs in the data? If NAs exist, you should deaf with them before next steps. Hint: delete the rows with NAs in data. (5分）
 
 ```r
-GDS4013_data<-read.table('~/data/GDS4013.txt',header = T)
+GDS4013_data<-read.table('./data/GDS4013.txt',header = T)
 
 head(GDS4013_data)
 ```
@@ -976,7 +976,7 @@ names(sort(sig.p.fdr))
 
 同2017年第三题
 
-## Question 3
+## Question 3 : microarray
 
 This question needs to use data "datasets.txt", which derives from a microarray dataset investigating gene e ression of certain disease. The data has been processed,and the first row of the data is the sample serial number,namely,S1 - S20, and the first column of the data is the genes (G1- G1OO). The numbers are the expression values of each gene.Please answer the following questions (R code required)
 
@@ -984,7 +984,7 @@ Please draw a density plot (PDF) to investigate the distribution G3 gene express
 
 
 ```r
-dataset <- read.table("~/data/datasets.txt",header = T)
+dataset <- read.table("./data/datasets.txt",header = T)
 dataset <- as.matrix(dataset)
 #(1)
 plot(density(as.numeric(dataset[3,])))
@@ -1090,7 +1090,7 @@ boxplot(gene_boxplot$stats)
 
 同2017年第四题
 
-## Question 5
+## Question 5 : NASH 2015
 
 >和2017年第五题很类似，可能2017年就是从2015年的题改的。
 
@@ -1100,9 +1100,9 @@ boxplot(gene_boxplot$stats)
 
 
 ```r
-GDS43013 <- read.table("~/data/GDS4013_2015.txt",header = T)
-GDS43013_sample <- read.table("~/data/GDS4013_sample.txt",header = F)
-methylation <- read.table("~/data/methylation.txt",header = F)
+GDS43013 <- read.table("./data/GDS4013_2015.txt",header = T)
+GDS43013_sample <- read.table("./data/GDS4013_sample.txt",header = F)
+methylation <- read.table("./data/methylation.txt",header = F)
 #(1)
 table(is.na(GDS43013))
 ```
@@ -1233,3 +1233,10 @@ power.t.test(n = 20,delta = mean(deg$met) - mean(ndeg$meth),
 ## 
 ## NOTE: n is number in *each* group
 ```
+
+pooled variance即合并方差：
+$$
+S_{c}^{2}=\frac{\left(n_{1}-1\right) S_{1}^{2}+\left(n_{2}-1\right) S_{2}^{2}}{n_{1}+n_{2}-2}
+$$
+
+>个人觉得不会考这么复杂的题。
