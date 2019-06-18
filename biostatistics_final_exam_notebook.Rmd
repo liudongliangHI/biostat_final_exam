@@ -2,8 +2,8 @@
 title: "生物统计学期末复习——2015年至2018年期末考试真题"
 author: "计算所-刘栋梁"
 date: "2019/6/1"
-output: 
-  html_document: 
+output:
+  html_document:
     keep_md: yes
     number_sections: yes
     theme: spacelab
@@ -50,7 +50,7 @@ H1: 两样本均值有差异
 #F检验-方差齐性检验，默认双尾，若题目问方差:A比B大或A比B小则用单尾"greater" or "less"
 var.test(K_d_data$patient,K_d_data$healthy,alternative = 'two.sided')
 ```
-p-value = 0.2055> 0.05 所以接受原假设，方差相等。
+p-value = 0.2055> 0.05 所以不拒绝原假设，方差相等。
 
 ```{r}
 t.test(K_d_data$patient,K_d_data$healthy,var.equal = T,alternative = 'two.sided')
@@ -81,7 +81,7 @@ To install this package, start R (version "3.6") and enter:
 if (!requireNamespace("BiocManager", quietly = TRUE))
 
   install.packages("BiocManager")
-    
+
 BiocManager::install("limma")
 
 >注意以上代码版本需要3.6版本的R，如果提示版本错误而你不想更新R版本的话，可以去官网寻找旧版本R中limma的安装方法。
@@ -96,7 +96,7 @@ updateR()
 
 >注意installr最好在R GUI里面安装，Rstudio里安装installr再更新R据说可能遇到bug（没试过不知道真假），如果遇到连不上服务器，原因可能是R设置的镜像不在国内，这里以中科大的开源镜像为例，cran_mirror参数也是CRAN在国内的镜像。
 
-updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/") 
+updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/")
 
 ```{r}
 GDS2676<-read.table("./data/GDS2676.txt",header = T)
@@ -269,11 +269,11 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 1. If we take out a ball **without replacement** every time, what’s the probability that there is only one white ball after 4 balls are taken out? (5分）
 
-> = 4 x 8 x 7 x 6 x 3 /(11 x 10 x 9 x 8) 
+> = 4 x 8 x 7 x 6 x 3 /(11 x 10 x 9 x 8)
 
 2. If we take out a ball **with replacement** every time, what’s the probability that there is only one white ball after 4 balls are taken out? (5分）
 
-> = 4 x 8 x 8 x 8 x 3/(11 x 11 x 11 x 11) 
+> = 4 x 8 x 8 x 8 x 3/(11 x 11 x 11 x 11)
 
 3. If we take out a ball **without replacement** every time, what’s the probability that the colors of the taken balls are black, white, white, and black in sequence after 4 balls are taken out? (5分）
 
@@ -281,7 +281,7 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 4. If we take out a ball **with replacement** every time, what’s the probability that the colors of the taken balls are black, white, white, and black in sequence after 4 balls are taken out? (5分）
 
-> = 8 x 3 x 3 x 8 /(11 x 11 x 11 x 11) 
+> = 8 x 3 x 3 x 8 /(11 x 11 x 11 x 11)
 
 > 注意放回与不放回的区别
 
@@ -363,7 +363,7 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='2'])
 shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='3'])
 
 ```
-结论：p-value均大于0.05，接受原假设，均服从正态分布。
+结论：p-value均大于0.05，不拒绝原假设，均服从正态分布。
 
 H0:方差齐次
 
@@ -372,7 +372,7 @@ H1:方差不齐次
 bartlett.test(lung_cancer_data$exp_A~as.factor(lung_cancer_data$hospital),data = lung_cancer_data)
 
 ```
-结论：p-value大于0.05，接受原假设，方差齐次。
+结论：p-value大于0.05，不拒绝原假设，方差齐次。
 
 因此可以用ANOVA分析
 
@@ -428,7 +428,7 @@ table(is.na(GDS4013_new))#检验去除缺失值的效果
 
 先F检验，再用t检验（若样本数太少则用非参数检验wilcox.test()
 ```{r}
-p.vartest <- apply(GDS4013_new, 1, function(x)var.test(x[1:10],x[11:18])$p.value) 
+p.vartest <- apply(GDS4013_new, 1, function(x)var.test(x[1:10],x[11:18])$p.value)
 GDS4013_new_data <- cbind(GDS4013_new, p.vartest)
 # 按题目要求取单尾 x[1:10] < x[11:18],alternative = 'less'
 p.value <- apply(GDS4013_new_data, 1, function(x)t.test(x[1:10],x[11:18],alternative = 'less', var.equal = (x[19] >= 0.05))$p.value)
@@ -474,7 +474,7 @@ names(sort(sig.p.fdr))
 
 This question needs to use data "datasets.txt", which derives from a microarray dataset investigating gene e ression of certain disease. The data has been processed,and the first row of the data is the sample serial number,namely,S1 - S20, and the first column of the data is the genes (G1- G1OO). The numbers are the expression values of each gene.Please answer the following questions (R code required)
 
-Please draw a density plot (PDF) to investigate the distribution G3 gene expression among 20 samples, and then calculate its minimum, median and variance using certain function in R. ( 10 分) 
+Please draw a density plot (PDF) to investigate the distribution G3 gene expression among 20 samples, and then calculate its minimum, median and variance using certain function in R. ( 10 分)
 
 ```{r}
 dataset <- read.table("./data/datasets.txt",header = T)
@@ -489,7 +489,7 @@ mean(dataset[3,])
 var(dataset[3,])
 ```
 
-Please draw a boxplot to compare the distribution of all genes expression among 20 different samples. Note that you should check whether there are any outliers in them? If they really exist, please delete them and redo it. (10 分) 
+Please draw a boxplot to compare the distribution of all genes expression among 20 different samples. Note that you should check whether there are any outliers in them? If they really exist, please delete them and redo it. (10 分)
 
 ```{r}
 boxplot(dataset)
@@ -525,7 +525,7 @@ boxplot(gene_boxplot$stats)
 
 >和2017年第五题很类似，可能2017年就是从2015年的题改的。
 
-5. Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetas, suggesting an important role of adipose tissue in the pathogenesis of NASH.Therefore, the mouse model was used to investigate the interaction between adipose tissure and liver.Wildtype male C57B1/6 mice were were fed LFD or HFD for 21 weeks,and the mice were divided into 4 groups based on liver histology and food fed. The detailed data can be found in GDS4013.txt, GDS4013_sample.txt and methylation.txt. (The analysis should be performed in R) 
+5. Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetas, suggesting an important role of adipose tissue in the pathogenesis of NASH.Therefore, the mouse model was used to investigate the interaction between adipose tissure and liver.Wildtype male C57B1/6 mice were were fed LFD or HFD for 21 weeks,and the mice were divided into 4 groups based on liver histology and food fed. The detailed data can be found in GDS4013.txt, GDS4013_sample.txt and methylation.txt. (The analysis should be performed in R)
 
 (l) Read in and normalize the data. Please check whether there is any "NA" in them? If so you will need to deal with them.
 
@@ -557,14 +557,14 @@ GDS43013$pvalue <- apply(GDS43013,1,t_test)
 rownames(GDS43013)[order(GDS43013$pvalue)[1:20]]
 
 ```
-(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the 
+(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the
 DEGs, and use t-test to check it.
 ```{r}
 set.seed(20190614)
 # 注意是随机抽样，每个人的结果可能有不同的地方。
 deg <- sample(rownames(GDS43013[GDS43013$pvalue < 0.05,]),size = 20)
 ndeg <- sample(rownames(GDS43013[GDS43013$pvalue > 0.05,]),size = 20)
-deg <- data.frame(name = deg,meth = 
+deg <- data.frame(name = deg,meth =
                     methylation$V2[match(deg,methylation$V1)])
 ndeg <- data.frame(name = ndeg,meth =
                    methylation$V2[match(ndeg,methylation$V1)])
