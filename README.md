@@ -1,11 +1,7 @@
-
 # 生物统计学期末复习——2015年至2018年期末考试真题
-### 计算所-刘栋梁
-
-### 2019/6/1
-
+## 计算所-刘栋梁
+## 2019/6/1
 [TOC]
-
 # Preface
 
 对生物统计学复习过程做一个笔记，主要以2015年至2018年考试真题为主，并没有写很多描述性的结论，考试的时候大家酌情添加吧。
@@ -16,7 +12,48 @@
 
 这份资料中肯定有错误和不详尽的地方，欢迎大家指正和补充。
 
+## Preface (2nd edition)
+
+主要是对limma包安装、R更新以及其他地方的补充说明。
+
+修改成可以复制粘贴查找的PDF文档版，方便大家使用。
+
+## Preface (3rd edition)
+
+经提醒，删除了“接受原假设”的不严格的说法，改为“不拒绝原假设”。
+
+2015年第五题存在问题，进行了修改。
+
+补充了2018年的试题。
+
+加入了彩色显示与代码高亮。
+
+
 # 2018 final exam
+
+## Question 1 晶体管
+
+Q1
+一个盒子中装有 10 个大小、形状完全相同的晶体管，其中4只是次品.按下列两种方法抽晶体管：（10 分）
+
+(1) 先任取一只, 作测试后放回盒中, 再任取下一只；
+
+(2) 先任取一只, 作测试后不放回, 在剩下的中再任取一只.
+
+试分别对这两种抽样方法, 求从这 10 只球任取 3 只中，恰有一只是次品的概率.
+
+解：记事件A为“从这 10 只球任取 3 只中，恰有一只是次品”。
+
+(1)
+$$
+P(A)=\frac{3*4*6*6} {10^{3}}=0.432
+$$
+(2)
+
+$$
+P(A)=\frac{3*4*6*5} {10*9*8}=0.5
+$$
+
 
 ## Question 2 : Acute Keshan disease
 
@@ -74,19 +111,19 @@ var.test(K_d_data$patient,K_d_data$healthy,alternative = 'two.sided')
 ```
 
 ```
-##
+## 
 ## 	F test to compare two variances
-##
+## 
 ## data:  K_d_data$patient and K_d_data$healthy
 ## F = 0.664, num df = 39, denom df = 39, p-value = 0.2055
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
 ##  0.3511884 1.2554349
 ## sample estimates:
-## ratio of variances
+## ratio of variances 
 ##          0.6639987
 ```
-p-value = 0.2055> 0.05 所以接受原假设，方差相等。
+p-value = 0.2055> 0.05 所以不拒绝原假设，方差相等。
 
 
 ```r
@@ -94,16 +131,16 @@ t.test(K_d_data$patient,K_d_data$healthy,var.equal = T,alternative = 'two.sided'
 ```
 
 ```
-##
+## 
 ## 	Two Sample t-test
-##
+## 
 ## data:  K_d_data$patient and K_d_data$healthy
 ## t = 4.8947, df = 78, p-value = 5.2e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  0.7690202 1.8234798
 ## sample estimates:
-## mean of x mean of y
+## mean of x mean of y 
 ##   4.65150   3.35525
 ```
 P<0.05,拒绝原假设，接受备择假设，两样本均值之间有差异。
@@ -115,9 +152,9 @@ wilcox.test(K_d_data$patient,K_d_data$healthy,paired = F,exact = F)
 ```
 
 ```
-##
+## 
 ## 	Wilcoxon rank sum test with continuity correction
-##
+## 
 ## data:  K_d_data$patient and K_d_data$healthy
 ## W = 1252.5, p-value = 1.358e-05
 ## alternative hypothesis: true location shift is not equal to 0
@@ -197,7 +234,7 @@ head(p.value)
 ```
 
 ```
-##       DDR1       RFC2      HSPA6       PAX8     GUCA1A       UBA7
+##       DDR1       RFC2      HSPA6       PAX8     GUCA1A       UBA7 
 ## 0.85274630 0.04674624 0.20083908 0.26468405 0.50000000 0.79916092
 ```
 
@@ -210,7 +247,7 @@ order_names
 
 ```
 ##  [1] "HNRNPA1"  "HNRNPU"   "CTNNA1"   "DSTN"     "RAB6A"    "RRBP1"   
-##  [7] "PLS3"     "CST3"     "ID2"      "DLG5"     "NDUFS3"   "PPP2R5C"
+##  [7] "PLS3"     "CST3"     "ID2"      "DLG5"     "NDUFS3"   "PPP2R5C" 
 ## [13] "LEPROT"   "DHRS3"    "H2AFV"    "SERPINA1" "SLC16A3"  "LOXL2"   
 ## [19] "PPM1F"    "CCNA2"
 ```
@@ -308,16 +345,16 @@ fisher.test(counts)
 ```
 
 ```
-##
+## 
 ## 	Fisher's Exact Test for Count Data
-##
+## 
 ## data:  counts
 ## p-value = 0.4593
 ## alternative hypothesis: true odds ratio is not equal to 1
 ## 95 percent confidence interval:
 ##  0.6036833 2.4446923
 ## sample estimates:
-## odds ratio
+## odds ratio 
 ##   1.288372
 ```
 p-value = 0.4593p-value = 0.4593<0.05，不显著富集。
@@ -348,14 +385,14 @@ summary(fit.full)
 ```
 
 ```
-##
+## 
 ## Call:
 ## glm(formula = y ~ x1 + x2 + x3, family = binomial, data = drivers)
-##
-## Deviance Residuals:
+## 
+## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
 ## -1.5636  -0.9131  -0.7892   0.9637   1.6000  
-##
+## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(>|z|)  
 ## (Intercept)  0.597610   0.894831   0.668   0.5042  
@@ -364,17 +401,21 @@ summary(fit.full)
 ## x3           0.315865   0.701093   0.451   0.6523  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-##
+## 
 ## (Dispersion parameter for binomial family taken to be 1)
-##
+## 
 ##     Null deviance: 62.183  on 44  degrees of freedom
 ## Residual deviance: 57.026  on 41  degrees of freedom
 ## AIC: 65.026
-##
+## 
 ## Number of Fisher Scoring iterations: 4
 ```
 
-回归公式为：$$odds = exp(0.597610-1.496084x_{1}-0.001595x_{2}+0.315865x_{3})$$
+回归公式为：
+
+$$
+odds = exp(0.597610-1.496084x_{1}-0.001595x_{2}+0.315865x_{3})
+$$
 （2）指出（1）得到的模型中哪些因素对是否发生事故有显著性影响。如果存在对是否发生事故没有显著性影响的因素，请去除这些因素后重新计算logistic回归模型，并以“p=……”的形式写出回归公式。（20分）
 
 切记要写H0,HA 文字分析及结论
@@ -388,27 +429,27 @@ summary(fit.full_re)
 ```
 
 ```
-##
+## 
 ## Call:
 ## glm(formula = y ~ x1, family = binomial, data = drivers)
-##
-## Deviance Residuals:
+## 
+## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
 ## -1.4490  -0.8782  -0.8782   0.9282   1.5096  
-##
+## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)  
 ## (Intercept)   0.6190     0.4688   1.320   0.1867  
 ## x1           -1.3728     0.6353  -2.161   0.0307 *
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-##
+## 
 ## (Dispersion parameter for binomial family taken to be 1)
-##
+## 
 ##     Null deviance: 62.183  on 44  degrees of freedom
 ## Residual deviance: 57.241  on 43  degrees of freedom
 ## AIC: 61.241
-##
+## 
 ## Number of Fisher Scoring iterations: 4
 ```
 
@@ -420,7 +461,7 @@ anova(fit.full,fit.full_re,test = "Chisq")
 
 ```
 ## Analysis of Deviance Table
-##
+## 
 ## Model 1: y ~ x1 + x2 + x3
 ## Model 2: y ~ x1
 ##   Resid. Df Resid. Dev Df Deviance Pr(>Chi)
@@ -431,7 +472,10 @@ anova(fit.full,fit.full_re,test = "Chisq")
 
 拟合公式为：
 
-$$p=\frac{exp(0.6190-1.3728x_{1})}{1+exp(0.6190-1.3728x_{1})}$$
+
+$$
+p=\frac{exp(0.6190-1.3728x_{1})}{1+exp(0.6190-1.3728x_{1})}
+$$
 
 
 
@@ -446,7 +490,7 @@ testdata_p
 ```
 
 ```
-##    1    2
+##    1    2 
 ## 0.65 0.32
 ```
 
@@ -540,11 +584,19 @@ Data given in dataset “anemia.txt”are the aplastic anemia data of 30 patient
 Note that you should give the formulas for calculation of the statistical values and the correlation coefficient. Hint:_the calculations can be performed with R.
 
 (1)Calculate the statistical values Lxx, Lyy, and Lxy. (6分)
-$$L_{xx}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)^{2}=\sum_{i=1}^{n} x_{i}^{2}-\left(\sum_{i=1}^{n} x_{i}\right)^{2} / n$$
-$$L_{yy}=\sum_{i=1}^{n}\left(y_{i}-\overline{y}\right)^{2}=\sum_{i=1}^{n} y_{i}^{2}-\left(\sum_{i=1}^{n} y_{i}\right)^{2} / n$$
-$$L_{xy}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)\left(y_{i}-\overline{y}\right)=\sum_{i=1}^{n} x_{i} y_{i}-\left(\sum_{i=1}^{n} x_{i}\right)\left(\sum_{i=1}^{n} y_{i}\right) / n$$
+$$
+L_{xx}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)^{2}=\sum_{i=1}^{n} x_{i}^{2}-\left(\sum_{i=1}^{n} x_{i}\right)^{2} / n
+$$
+$$
+L_{yy}=\sum_{i=1}^{n}\left(y_{i}-\overline{y}\right)^{2}=\sum_{i=1}^{n} y_{i}^{2}-\left(\sum_{i=1}^{n} y_{i}\right)^{2} / n
+$$
+$$
+L_{xy}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)\left(y_{i}-\overline{y}\right)=\sum_{i=1}^{n} x_{i} y_{i}-\left(\sum_{i=1}^{n} x_{i}\right)\left(\sum_{i=1}^{n} y_{i}\right) / n
+$$
 
-$$\beta=L_{xy}/L_{xx}$$
+$$
+\beta=L_{xy}/L_{xx}
+$$
 
 
 
@@ -614,29 +666,31 @@ summary(myfit)
 ```
 
 ```
-##
+## 
 ## Call:
 ## lm(formula = y ~ x, data = anemia_data)
-##
+## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max
-## -467.91 -113.60   41.44  115.93  384.02
-##
+##     Min      1Q  Median      3Q     Max 
+## -467.91 -113.60   41.44  115.93  384.02 
+## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
 ## (Intercept)  -183.54     119.76  -1.533    0.137    
 ## x             511.49      16.58  30.844   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-##
+## 
 ## Residual standard error: 204.4 on 28 degrees of freedom
-## Multiple R-squared:  0.9714,	Adjusted R-squared:  0.9704
+## Multiple R-squared:  0.9714,	Adjusted R-squared:  0.9704 
 ## F-statistic: 951.3 on 1 and 28 DF,  p-value: < 2.2e-16
 ```
 
 (3)Calculate the correlation coefficient based on the statistical values. （7分）
 
-$$r=\frac{\sum(x-\overline{x})(y-\overline{y})}{\sqrt{\sum(x-\overline{x})^{2} \sum(y-\overline{y})^{2}}}$$
+$$
+r=\frac{\sum(x-\overline{x})(y-\overline{y})}{\sqrt{\sum(x-\overline{x})^{2} \sum(y-\overline{y})^{2}}}
+$$
 
 
 ```r
@@ -652,16 +706,16 @@ cor.test(x,y)
 ```
 
 ```
-##
+## 
 ## 	Pearson's product-moment correlation
-##
+## 
 ## data:  x and y
 ## t = 30.844, df = 28, p-value < 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.9696296 0.9932023
 ## sample estimates:
-##       cor
+##       cor 
 ## 0.9856011
 ```
 
@@ -715,9 +769,9 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='1'])
 ```
 
 ```
-##
+## 
 ## 	Shapiro-Wilk normality test
-##
+## 
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "1"]
 ## W = 0.99125, p-value = 0.7648
 ```
@@ -727,9 +781,9 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='2'])
 ```
 
 ```
-##
+## 
 ## 	Shapiro-Wilk normality test
-##
+## 
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "2"]
 ## W = 0.96509, p-value = 0.1452
 ```
@@ -739,13 +793,13 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='3'])
 ```
 
 ```
-##
+## 
 ## 	Shapiro-Wilk normality test
-##
+## 
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "3"]
 ## W = 0.97516, p-value = 0.3702
 ```
-结论：p-value均大于0.05，接受原假设，均服从正态分布。
+结论：p-value均大于0.05，不拒绝原假设，均服从正态分布。
 
 H0:方差齐次
 
@@ -756,13 +810,13 @@ bartlett.test(lung_cancer_data$exp_A~as.factor(lung_cancer_data$hospital),data =
 ```
 
 ```
-##
+## 
 ## 	Bartlett test of homogeneity of variances
-##
+## 
 ## data:  lung_cancer_data$exp_A by as.factor(lung_cancer_data$hospital)
 ## Bartlett's K-squared = 1.5481, df = 2, p-value = 0.4611
 ```
-结论：p-value大于0.05，接受原假设，方差齐次。
+结论：p-value大于0.05，不拒绝原假设，方差齐次。
 
 因此可以用ANOVA分析
 
@@ -798,9 +852,9 @@ TukeyHSD(ff)#查看交互作用
 ```
 ##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
-##
+## 
 ## Fit: aov(formula = lung_cancer_data$exp_A ~ as.factor(lung_cancer_data$hospital), data = lung_cancer_data)
-##
+## 
 ## $`as.factor(lung_cancer_data$hospital)`
 ##         diff      lwr      upr     p adj
 ## 2-1 -33.3103 -44.1758 -22.4448 0.0000000
@@ -831,32 +885,33 @@ summary(glm_fit)
 ```
 
 ```
-##
+## 
 ## Call:
-## glm(formula = new_data$status ~ new_data$abnormal, family = binomial(),
+## glm(formula = new_data$status ~ new_data$abnormal, family = binomial(), 
 ##     data = new_data)
-##
-## Deviance Residuals:
+## 
+## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
 ## -1.7847  -1.2403   0.6744   0.6744   1.1158  
-##
+## 
 ## Coefficients:
 ##                   Estimate Std. Error z value Pr(>|z|)   
 ## (Intercept)         0.1466     0.3132   0.468  0.63971   
 ## new_data$abnormal   1.2186     0.4502   2.707  0.00679 **
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-##
+## 
 ## (Dispersion parameter for binomial family taken to be 1)
-##
+## 
 ##     Null deviance: 123.82  on 99  degrees of freedom
 ## Residual deviance: 116.22  on 98  degrees of freedom
 ## AIC: 120.22
-##
+## 
 ## Number of Fisher Scoring iterations: 4
 ```
 
 ## Question 5 : NASH 2017
+
 Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetes, suggesting an important role of adipose tissue in the pathogenesis of NASH. Therefore, the mouse model was used to investigate the interaction between adipose tissue and liver. Wildtype male C57Bl/6 mice were fed low fat food (LFD) or high fat food (HFD) for 21 weeks. The detailed data can be found in GDS4013.txt. Hint: provide the R code and result calculated with R. （本题共20分）
 
 1.Read the data. Check whether there are NAs in the data? If NAs exist, you should deaf with them before next steps. Hint: delete the rows with NAs in data. (5分）
@@ -896,8 +951,8 @@ table(is.na(GDS4013_data))# 检查缺失值
 ```
 
 ```
-##
-##  FALSE   TRUE
+## 
+##  FALSE   TRUE 
 ## 481694      4
 ```
 
@@ -908,8 +963,8 @@ table(is.na(GDS4013_new))#检验去除缺失值的效果
 ```
 
 ```
-##
-##  FALSE
+## 
+##  FALSE 
 ## 481626
 ```
 
@@ -961,7 +1016,7 @@ names(sort(sig.p.fdr))
 
 空，资料中没这题。
 
-# 2016 final exam
+# 2015 final exam
 
 ## Question 1
 
@@ -994,7 +1049,7 @@ dev.off()
 ```
 
 ```
-## png
+## png 
 ##   2
 ```
 
@@ -1093,9 +1148,13 @@ boxplot(gene_boxplot$stats)
 
 (l) Read in and normalize the data. Please check whether there is any "NA" in them? If so you will need to deal with them.
 
+>注意这个数据有两个版本，2015和2017年版，2017年版的数据是有缺失值的。
+
+>以下过程参考了徐洲更师兄2017年版的代码，数据也是2017年版的，之前那个版本计算DEGs时没有采用标准化后的数据，在这里也一并更正。有很多地方是自己的理解，可能并不正确。
+
 
 ```r
-GDS43013 <- read.table("./data/GDS4013_2015.txt",header = T)
+GDS43013 <- read.table("./data/GDS4013.txt",header = T)
 GDS43013_sample <- read.table("./data/GDS4013_sample.txt",header = F)
 methylation <- read.table("./data/methylation.txt",header = F)
 #(1)
@@ -1103,9 +1162,9 @@ table(is.na(GDS43013))
 ```
 
 ```
-##
-##  FALSE
-## 481698
+## 
+##  FALSE   TRUE 
+## 481694      4
 ```
 
 ```r
@@ -1113,119 +1172,114 @@ table(is.na(methylation))
 ```
 
 ```
-##
-## FALSE
+## 
+## FALSE 
 ## 53522
 ```
 
 ```r
-# 这里没有缺失值，有缺失值的话用na.omit(GDS43013)即可。
+GDS43013 <- na.omit(GDS43013)
+
+# 这里采用limma包
 library(limma)
 GDS_norm <- normalizeQuantiles(GDS43013) # 数据标准化
 ```
+
+
 
 (2) Find differentially expressed genes (up-regulated, HF>LF) between LF and HF samples, and list the top 20 up-regulated genes.Which statistical test should be used here?
 
 
 ```r
-#(2)
-t_test <- function(x) {
-  x <- unlist(x)
-  if (var.test(x[1:10],x[11:18])$p.value < 0.05) {
-    t.test(x[1:10],x[11:18],var.equal = F,alternative = "less")$p.value
-  }else {
-    t.test(x[1:10],x[11:18],var.equal = T,alternative = "less")$p.value
-  }
-}
-GDS43013$pvalue <- apply(GDS43013,1,t_test)
-rownames(GDS43013)[order(GDS43013$pvalue)[1:20]]
+#先计算var.test结果，放在最后一列
+p.var <- apply(GDS_norm,1, function(x) var.test(x[1:10],x[11:18])$p.value)
+GDS_norm <- cbind(GDS_norm,p.var)
+#	LF:	x[1:10]	HF:	x[11:18];HF>LF,	LF<HF
+#	var.test result	in	x[19]
+p.t	<-apply(GDS_norm,1,function(x)t.test(x[1:10],x[11:18],alternative=c("less"),var.equal	=x[19]>=0.05)$p.value)
+table(p.t<0.05)
 ```
 
 ```
-##  [1] "SEMA5B"        "BC048403"      "PMPCB"         "CES2E"        
-##  [5] "GSTK1"         "SEMA4D"        "LAMB3"         "4921518J05RIK"
-##  [9] "HSD17B4"       "PEX13"         "LIAS"          "PSTPIP1"      
-## [13] "LOC100504952"  "MTNR1A"        "PARK7"         "CLSTN3"       
-## [17] "OCIAD2"        "DEFB35"        "HEXDC"         "FABP2"
+## 
+## FALSE  TRUE 
+## 24948  1809
 ```
-(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the
-DEGs, and use t-test to check it.
 
 ```r
-set.seed(20190614)
+names(sort(p.t)[1:20])
+```
+
+```
+##  [1] "SEMA5B"        "BC048403"      "CES2E"         "GSTK1"        
+##  [5] "PMPCB"         "SEMA4D"        "LAMB3"         "PSTPIP1"      
+##  [9] "4921518J05RIK" "LIAS"          "PEX13"         "MTNR1A"       
+## [13] "OCIAD2"        "CLSTN3"        "5330427O13RIK" "NDUFS4"       
+## [17] "HSD17B4"       "FABP2"         "TPM2"          "STC2"
+```
+
+(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the DEGs, and use t-test to check it.
+
+```r
+set.seed(614)
 # 注意是随机抽样，每个人的结果可能有不同的地方。
-deg <- sample(rownames(GDS43013[GDS43013$pvalue < 0.05,]),size = 20)
-ndeg <- sample(rownames(GDS43013[GDS43013$pvalue > 0.05,]),size = 20)
-deg <- data.frame(name = deg,meth =
-                    methylation$V2[match(deg,methylation$V1)])
-ndeg <- data.frame(name = ndeg,meth =
-                   methylation$V2[match(ndeg,methylation$V1)])
-var.test(deg$meth,ndeg$meth)
+DEG_name<-sample(names(p.t[p.t<0.05]),100)
+non_DEG_name<-sample(names(p.t[p.t>0.05]),100)
+methy_DEG<-methylation[methylation$V1 %in% DEG_name,]
+methy_non_DEG<-methylation[methylation$V1 %in% non_DEG_name,]
+t.test(methy_DEG$V2,methy_non_DEG$V2,var.equal =(var.test(methy_DEG$V2,methy_non_DEG$V2)$p.value >= 0.05)) 
 ```
 
 ```
-##
-## 	F test to compare two variances
-##
-## data:  deg$meth and ndeg$meth
-## F = 2.6794, num df = 19, denom df = 19, p-value = 0.03754
-## alternative hypothesis: true ratio of variances is not equal to 1
-## 95 percent confidence interval:
-##  1.060535 6.769346
-## sample estimates:
-## ratio of variances
-##            2.67939
-```
-
-```r
-t.test(deg$meth,ndeg$meth,var.equal = var.test(deg$meth,ndeg$meth)$p.value	>=	0.05) #根据方差齐性检验做t-test。
-```
-
-```
-##
+## 
 ## 	Welch Two Sample t-test
-##
-## data:  deg$meth and ndeg$meth
-## t = 2.19, df = 31.448, p-value = 0.03606
+## 
+## data:  methy_DEG$V2 and methy_non_DEG$V2
+## t = 4.4984, df = 186.75, p-value = 1.201e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01194761 0.33315141
+##  0.07469472 0.19138251
 ## sample estimates:
-## mean of x mean of y
-## 0.5849530 0.4124035
+## mean of x mean of y 
+## 0.5391043 0.4060657
 ```
 
+```r
+#根据方差齐性检验做t-test。
+```
+
+>这里的randomly choose the same number of genes as that of the DEGs我个人认为是你自己指定一个样本量来抽样，不然把差异基因全抽出来也不叫抽样了。
 
 (4) Please provide the power of t-test used in (3). (hint : this is two independent samples, so use pooled variance when you calculate the absolute effect size)
 
 
 ```r
 #(4)
-pooled.sd <- function(data){
-  p <- length(table(data$g))
-  n.g <- table(data$g)
-  sd.g <- aggregate(data$y,by=list(data$g),sd)[,2]
-  sqrt(sum((n.g - 1) * sd.g^2)/(sum(n.g) - p))
-}
-data <- data.frame(y = c(deg$meth,ndeg$meth),
-                   g = c(rep("deg",20),rep("ndeg",20)))
-delta <- mean(deg$met) - mean(ndeg$meth) / pooled.sd(data)
-power.t.test(n = 20,delta = mean(deg$met) - mean(ndeg$meth),
-             sd = pooled.sd(data),
-             sig.level = 0.05)
+n1 <- length(methy_DEG$V2)
+var1 <-	var(methy_DEG$V2)
+n2	<- length(methy_non_DEG$V2)
+var2 <-	var(methy_non_DEG$V2)
+
+# pooled variance即合并方差,参见后面公式。
+pool_var <-	((n1-1)	*var1+(n2-1)*var2)/(n1+n2-2)
+# 计算power。其中效应值 = (d1-d2)/sd
+# 根据混池计算效应值
+ds <- (mean(methy_DEG$V2)-mean(methy_non_DEG$V2))/sqrt(pool_var)
+library(pwr)
+powers <-pwr.t.test(n=100,d=ds,sig.level=0.05,type="two.sample",alternative="two.sided")
+powers
 ```
 
 ```
-##
-##      Two-sample t test power calculation
-##
-##               n = 20
-##           delta = 0.1725495
-##              sd = 0.2491581
+## 
+##      Two-sample t test power calculation 
+## 
+##               n = 100
+##               d = 0.6361638
 ##       sig.level = 0.05
-##           power = 0.5692488
+##           power = 0.9940732
 ##     alternative = two.sided
-##
+## 
 ## NOTE: n is number in *each* group
 ```
 

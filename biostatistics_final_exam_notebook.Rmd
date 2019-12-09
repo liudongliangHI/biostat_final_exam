@@ -24,7 +24,42 @@ Sys.setlocale('LC_ALL','C')
 
 这份资料中肯定有错误和不详尽的地方，欢迎大家指正和补充。
 
+## Preface (2nd edition)
+
+主要是对limma包安装、R更新以及其他地方的补充说明。
+
+修改成可以复制粘贴查找的PDF文档版，方便大家使用。
+
+## Preface (3rd edition)
+
+经提醒，删除了“接受原假设”的说法，改为“不拒绝原假设”。
+
+2015年第五题存在问题，进行了修改。
+
+补充了2018年的试题。
+
+
 # 2018 final exam
+
+## Question 1 晶体管
+
+Q1
+一个盒子中装有 10 个大小、形状完全相同的晶体管，其中4只是次品.按下列两种方法抽晶体管：（10 分）
+
+(1) 先任取一只, 作测试后放回盒中, 再任取下一只；
+
+(2) 先任取一只, 作测试后不放回, 在剩下的中再任取一只.
+
+试分别对这两种抽样方法, 求从这 10 只球任取 3 只中，恰有一只是次品的概率.
+
+解：记事件A为“从这 10 只球任取 3 只中，恰有一只是次品”。
+
+(1)
+$$P(A)=\frac{3*4*6*6} {10^{3}}=0.432$$
+(2)
+
+$$P(A)=\frac{3*4*6*5} {10*9*8}=0.5$$
+
 
 ## Question 2 : Acute Keshan disease
 
@@ -529,67 +564,71 @@ boxplot(gene_boxplot$stats)
 
 (l) Read in and normalize the data. Please check whether there is any "NA" in them? If so you will need to deal with them.
 
+>注意这个数据有两个版本，2015和2017年版，2017年版的数据是有缺失值的。
+
+>以下过程参考了徐洲更师兄2017年版的代码，数据也是2017年版的，之前那个版本计算DEGs时没有采用标准化后的数据，在这里也一并更正。有很多地方是自己的理解，可能并不正确。
+
 ```{r}
-GDS43013 <- read.table("./data/GDS4013_2015.txt",header = T)
+GDS43013 <- read.table("./data/GDS4013.txt",header = T)
 GDS43013_sample <- read.table("./data/GDS4013_sample.txt",header = F)
 methylation <- read.table("./data/methylation.txt",header = F)
 #(1)
 table(is.na(GDS43013))
 table(is.na(methylation))
-# 这里没有缺失值，有缺失值的话用na.omit(GDS43013)即可。
+GDS43013 <- na.omit(GDS43013)
+
+# 这里采用limma包
 library(limma)
 GDS_norm <- normalizeQuantiles(GDS43013) # 数据标准化
 ```
 
+
+
 (2) Find differentially expressed genes (up-regulated, HF>LF) between LF and HF samples, and list the top 20 up-regulated genes.Which statistical test should be used here?
 
 ```{r}
-#(2)
-t_test <- function(x) {
-  x <- unlist(x)
-  if (var.test(x[1:10],x[11:18])$p.value < 0.05) {
-    t.test(x[1:10],x[11:18],var.equal = F,alternative = "less")$p.value
-  }else {
-    t.test(x[1:10],x[11:18],var.equal = T,alternative = "less")$p.value
-  }
-}
-GDS43013$pvalue <- apply(GDS43013,1,t_test)
-rownames(GDS43013)[order(GDS43013$pvalue)[1:20]]
-
+#先计算var.test结果，放在最后一列
+p.var	<-	apply(GDS_norm,	1, function(x)	var.test(x[1:10],	x[11:18])$p.value)
+GDS_norm <- cbind(GDS_norm,p.var)
+#	LF:	x[1:10]	HF:	x[11:18];	HF>LF,	LF<HF
+#	var.test	result	in	x[19]
+p.t	<-	apply(GDS_norm,1,function(x)t.test(x[1:10],x[11:18],alternative=c("less"),var.equal	=	x[19]>=0.05)$p.value)
+table(p.t<0.05)
+names(sort(p.t)[1:20])
 ```
-(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the
-DEGs, and use t-test to check it.
+
+(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the DEGs, and use t-test to check it.
 ```{r}
-set.seed(20190614)
+set.seed(614)
 # 注意是随机抽样，每个人的结果可能有不同的地方。
-deg <- sample(rownames(GDS43013[GDS43013$pvalue < 0.05,]),size = 20)
-ndeg <- sample(rownames(GDS43013[GDS43013$pvalue > 0.05,]),size = 20)
-deg <- data.frame(name = deg,meth =
-                    methylation$V2[match(deg,methylation$V1)])
-ndeg <- data.frame(name = ndeg,meth =
-                   methylation$V2[match(ndeg,methylation$V1)])
-var.test(deg$meth,ndeg$meth)
-t.test(deg$meth,ndeg$meth,var.equal = var.test(deg$meth,ndeg$meth)$p.value	>=	0.05) #根据方差齐性检验做t-test。
+DEG_name	<-	sample(names(p.t[p.t	<	0.05]),	100)
+non_DEG_name	<-	sample(names(p.t[p.t	>	0.05]),	100)
+methy_DEG	<-	methylation[methylation$V1	%in%	DEG_name,	]
+methy_non_DEG	<-	methylation[methylation$V1	%in%	non_DEG_name,	]
+t.test(methy_DEG$V2,methy_non_DEG$V2,var.equal=(var.test(methy_DEG$V2,methy_non_DEG$V2)$p.value	>=	0.05)) 
+#根据方差齐性检验做t-test。
 
 ```
 
+>这里的randomly choose the same number of genes as that of the DEGs我个人认为是你自己指定一个样本量来抽样，不然把差异基因全抽出来也不叫抽样了。
 
 (4) Please provide the power of t-test used in (3). (hint : this is two independent samples, so use pooled variance when you calculate the absolute effect size)
 
 ```{r}
 #(4)
-pooled.sd <- function(data){
-  p <- length(table(data$g))
-  n.g <- table(data$g)
-  sd.g <- aggregate(data$y,by=list(data$g),sd)[,2]
-  sqrt(sum((n.g - 1) * sd.g^2)/(sum(n.g) - p))
-}
-data <- data.frame(y = c(deg$meth,ndeg$meth),
-                   g = c(rep("deg",20),rep("ndeg",20)))
-delta <- mean(deg$met) - mean(ndeg$meth) / pooled.sd(data)
-power.t.test(n = 20,delta = mean(deg$met) - mean(ndeg$meth),
-             sd = pooled.sd(data),
-             sig.level = 0.05)
+n1	<-	length(methy_DEG$V2)
+var1	<-	var(methy_DEG$V2)
+n2	<-	length(methy_non_DEG$V2)
+var2	<-	var(methy_non_DEG$V2)
+
+# pooled variance即合并方差,参见后面公式。
+pool_var	<-	((n1-1)	*	var1	+	(n2-1)	*	var2)	/	(n1+n2-2)
+# 计算power。其中效应值 = (d1 -d2)/sd
+#	根据混池计算效应值
+ds	=	(mean(methy_DEG$V2)	-	mean(methy_non_DEG$V2))	/	sqrt(pool_var)
+library(pwr)
+powers	<-	pwr.t.test(n=100,	d=ds,	sig.level=0.05,type="two.sample",	alternative	=	"two.sided")
+powers
 ```
 
 pooled variance即合并方差：

@@ -1,16 +1,4 @@
----
-title: "生物统计学期末复习——2015年至2018年期末考试真题"
-author: "计算所-刘栋梁"
-date: "2019/6/1"
-output: 
-  html_document: 
-    keep_md: yes
-    number_sections: yes
-    theme: spacelab
-    toc: yes
----
-
-
+[TOC]
 # Preface
 
 对生物统计学复习过程做一个笔记，主要以2015年至2018年考试真题为主，并没有写很多描述性的结论，考试的时候大家酌情添加吧。
@@ -21,7 +9,46 @@ output:
 
 这份资料中肯定有错误和不详尽的地方，欢迎大家指正和补充。
 
+## Preface (2nd edition)
+
+主要是对limma包安装、R更新以及其他地方的补充说明。
+
+修改成可以复制粘贴查找的PDF文档版，方便大家使用。
+
+## Preface (3rd edition)
+
+经提醒，删除了“接受原假设”的说法，改为“不拒绝原假设”。
+
+2015年第五题存在问题，进行了修改。
+
+补充了2018年的试题。
+
+
 # 2018 final exam
+
+## Question 1 晶体管
+
+Q1
+一个盒子中装有 10 个大小、形状完全相同的晶体管，其中4只是次品.按下列两种方法抽晶体管：（10 分）
+
+(1) 先任取一只, 作测试后放回盒中, 再任取下一只；
+
+(2) 先任取一只, 作测试后不放回, 在剩下的中再任取一只.
+
+试分别对这两种抽样方法, 求从这 10 只球任取 3 只中，恰有一只是次品的概率.
+
+解：记事件A为“从这 10 只球任取 3 只中，恰有一只是次品”。
+
+(1)
+$$
+P(A)=\frac{3*4*6*6} {10^{3}}=0.432
+$$
+(2)
+
+$$
+P(A)=\frac{3*4*6*5} {10*9*8}=0.5
+$$
+
 
 ## Question 2 : Acute Keshan disease
 
@@ -91,7 +118,7 @@ var.test(K_d_data$patient,K_d_data$healthy,alternative = 'two.sided')
 ## ratio of variances 
 ##          0.6639987
 ```
-p-value = 0.2055> 0.05 所以接受原假设，方差相等。
+p-value = 0.2055> 0.05 所以不拒绝原假设，方差相等。
 
 
 ```r
@@ -147,7 +174,7 @@ To install this package, start R (version "3.6") and enter:
 if (!requireNamespace("BiocManager", quietly = TRUE))
 
   install.packages("BiocManager")
-    
+
 BiocManager::install("limma")
 
 >注意以上代码版本需要3.6版本的R，如果提示版本错误而你不想更新R版本的话，可以去官网寻找旧版本R中limma的安装方法。
@@ -162,7 +189,7 @@ updateR()
 
 >注意installr最好在R GUI里面安装，Rstudio里安装installr再更新R据说可能遇到bug（没试过不知道真假），如果遇到连不上服务器，原因可能是R设置的镜像不在国内，这里以中科大的开源镜像为例，cran_mirror参数也是CRAN在国内的镜像。
 
-updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/") 
+updateR(fast=TRUE,cran_mirror="https://mirrors.ustc.edu.cn/CRAN/")
 
 
 ```r
@@ -379,7 +406,11 @@ summary(fit.full)
 ## Number of Fisher Scoring iterations: 4
 ```
 
-回归公式为：$$odds = exp(0.597610-1.496084x_{1}-0.001595x_{2}+0.315865x_{3})$$
+回归公式为：
+
+$$
+odds = exp(0.597610-1.496084x_{1}-0.001595x_{2}+0.315865x_{3})
+$$
 （2）指出（1）得到的模型中哪些因素对是否发生事故有显著性影响。如果存在对是否发生事故没有显著性影响的因素，请去除这些因素后重新计算logistic回归模型，并以“p=……”的形式写出回归公式。（20分）
 
 切记要写H0,HA 文字分析及结论
@@ -436,7 +467,10 @@ anova(fit.full,fit.full_re,test = "Chisq")
 
 拟合公式为：
 
-$$p=\frac{exp(0.6190-1.3728x_{1})}{1+exp(0.6190-1.3728x_{1})}$$
+
+$$
+p=\frac{exp(0.6190-1.3728x_{1})}{1+exp(0.6190-1.3728x_{1})}
+$$
 
 
 
@@ -519,11 +553,11 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 1. If we take out a ball **without replacement** every time, what’s the probability that there is only one white ball after 4 balls are taken out? (5分）
 
-> = 4 x 8 x 7 x 6 x 3 /(11 x 10 x 9 x 8) 
+> = 4 x 8 x 7 x 6 x 3 /(11 x 10 x 9 x 8)
 
 2. If we take out a ball **with replacement** every time, what’s the probability that there is only one white ball after 4 balls are taken out? (5分）
 
-> = 4 x 8 x 8 x 8 x 3/(11 x 11 x 11 x 11) 
+> = 4 x 8 x 8 x 8 x 3/(11 x 11 x 11 x 11)
 
 3. If we take out a ball **without replacement** every time, what’s the probability that the colors of the taken balls are black, white, white, and black in sequence after 4 balls are taken out? (5分）
 
@@ -531,7 +565,7 @@ There are 3 white balls and 8 black balls in a pocket. （本题共20分）
 
 4. If we take out a ball **with replacement** every time, what’s the probability that the colors of the taken balls are black, white, white, and black in sequence after 4 balls are taken out? (5分）
 
-> = 8 x 3 x 3 x 8 /(11 x 11 x 11 x 11) 
+> = 8 x 3 x 3 x 8 /(11 x 11 x 11 x 11)
 
 > 注意放回与不放回的区别
 
@@ -545,11 +579,19 @@ Data given in dataset “anemia.txt”are the aplastic anemia data of 30 patient
 Note that you should give the formulas for calculation of the statistical values and the correlation coefficient. Hint:_the calculations can be performed with R.
 
 (1)Calculate the statistical values Lxx, Lyy, and Lxy. (6分)
-$$L_{xx}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)^{2}=\sum_{i=1}^{n} x_{i}^{2}-\left(\sum_{i=1}^{n} x_{i}\right)^{2} / n$$
-$$L_{yy}=\sum_{i=1}^{n}\left(y_{i}-\overline{y}\right)^{2}=\sum_{i=1}^{n} y_{i}^{2}-\left(\sum_{i=1}^{n} y_{i}\right)^{2} / n$$
-$$L_{xy}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)\left(y_{i}-\overline{y}\right)=\sum_{i=1}^{n} x_{i} y_{i}-\left(\sum_{i=1}^{n} x_{i}\right)\left(\sum_{i=1}^{n} y_{i}\right) / n$$
+$$
+L_{xx}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)^{2}=\sum_{i=1}^{n} x_{i}^{2}-\left(\sum_{i=1}^{n} x_{i}\right)^{2} / n
+$$
+$$
+L_{yy}=\sum_{i=1}^{n}\left(y_{i}-\overline{y}\right)^{2}=\sum_{i=1}^{n} y_{i}^{2}-\left(\sum_{i=1}^{n} y_{i}\right)^{2} / n
+$$
+$$
+L_{xy}=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)\left(y_{i}-\overline{y}\right)=\sum_{i=1}^{n} x_{i} y_{i}-\left(\sum_{i=1}^{n} x_{i}\right)\left(\sum_{i=1}^{n} y_{i}\right) / n
+$$
 
-$$\beta=L_{xy}/L_{xx}$$
+$$
+\beta=L_{xy}/L_{xx}
+$$
 
 
 
@@ -641,7 +683,9 @@ summary(myfit)
 
 (3)Calculate the correlation coefficient based on the statistical values. （7分）
 
-$$r=\frac{\sum(x-\overline{x})(y-\overline{y})}{\sqrt{\sum(x-\overline{x})^{2} \sum(y-\overline{y})^{2}}}$$
+$$
+r=\frac{\sum(x-\overline{x})(y-\overline{y})}{\sqrt{\sum(x-\overline{x})^{2} \sum(y-\overline{y})^{2}}}
+$$
 
 
 ```r
@@ -750,7 +794,7 @@ shapiro.test(lung_cancer_data$exp_A[lung_cancer_data$hospital=='3'])
 ## data:  lung_cancer_data$exp_A[lung_cancer_data$hospital == "3"]
 ## W = 0.97516, p-value = 0.3702
 ```
-结论：p-value均大于0.05，接受原假设，均服从正态分布。
+结论：p-value均大于0.05，不拒绝原假设，均服从正态分布。
 
 H0:方差齐次
 
@@ -767,7 +811,7 @@ bartlett.test(lung_cancer_data$exp_A~as.factor(lung_cancer_data$hospital),data =
 ## data:  lung_cancer_data$exp_A by as.factor(lung_cancer_data$hospital)
 ## Bartlett's K-squared = 1.5481, df = 2, p-value = 0.4611
 ```
-结论：p-value大于0.05，接受原假设，方差齐次。
+结论：p-value大于0.05，不拒绝原假设，方差齐次。
 
 因此可以用ANOVA分析
 
@@ -923,7 +967,7 @@ table(is.na(GDS4013_new))#检验去除缺失值的效果
 先F检验，再用t检验（若样本数太少则用非参数检验wilcox.test()
 
 ```r
-p.vartest <- apply(GDS4013_new, 1, function(x)var.test(x[1:10],x[11:18])$p.value) 
+p.vartest <- apply(GDS4013_new, 1, function(x)var.test(x[1:10],x[11:18])$p.value)
 GDS4013_new_data <- cbind(GDS4013_new, p.vartest)
 # 按题目要求取单尾 x[1:10] < x[11:18],alternative = 'less'
 p.value <- apply(GDS4013_new_data, 1, function(x)t.test(x[1:10],x[11:18],alternative = 'less', var.equal = (x[19] >= 0.05))$p.value)
@@ -980,7 +1024,7 @@ names(sort(sig.p.fdr))
 
 This question needs to use data "datasets.txt", which derives from a microarray dataset investigating gene e ression of certain disease. The data has been processed,and the first row of the data is the sample serial number,namely,S1 - S20, and the first column of the data is the genes (G1- G1OO). The numbers are the expression values of each gene.Please answer the following questions (R code required)
 
-Please draw a density plot (PDF) to investigate the distribution G3 gene expression among 20 samples, and then calculate its minimum, median and variance using certain function in R. ( 10 分) 
+Please draw a density plot (PDF) to investigate the distribution G3 gene expression among 20 samples, and then calculate its minimum, median and variance using certain function in R. ( 10 分)
 
 
 ```r
@@ -1027,7 +1071,7 @@ var(dataset[3,])
 ## [1] 0.3880644
 ```
 
-Please draw a boxplot to compare the distribution of all genes expression among 20 different samples. Note that you should check whether there are any outliers in them? If they really exist, please delete them and redo it. (10 分) 
+Please draw a boxplot to compare the distribution of all genes expression among 20 different samples. Note that you should check whether there are any outliers in them? If they really exist, please delete them and redo it. (10 分)
 
 
 ```r
@@ -1094,13 +1138,17 @@ boxplot(gene_boxplot$stats)
 
 >和2017年第五题很类似，可能2017年就是从2015年的题改的。
 
-5. Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetas, suggesting an important role of adipose tissue in the pathogenesis of NASH.Therefore, the mouse model was used to investigate the interaction between adipose tissure and liver.Wildtype male C57B1/6 mice were were fed LFD or HFD for 21 weeks,and the mice were divided into 4 groups based on liver histology and food fed. The detailed data can be found in GDS4013.txt, GDS4013_sample.txt and methylation.txt. (The analysis should be performed in R) 
+5. Nonalcoholic steatohepatitis or NASH is a common liver disease, and was found to be linked to obesity and diabetas, suggesting an important role of adipose tissue in the pathogenesis of NASH.Therefore, the mouse model was used to investigate the interaction between adipose tissure and liver.Wildtype male C57B1/6 mice were were fed LFD or HFD for 21 weeks,and the mice were divided into 4 groups based on liver histology and food fed. The detailed data can be found in GDS4013.txt, GDS4013_sample.txt and methylation.txt. (The analysis should be performed in R)
 
 (l) Read in and normalize the data. Please check whether there is any "NA" in them? If so you will need to deal with them.
 
+>注意这个数据有两个版本，2015和2017年版，2017年版的数据是有缺失值的。
+
+>以下过程参考了徐洲更师兄2017年版的代码，数据也是2017年版的，之前那个版本计算DEGs时没有采用标准化后的数据，在这里也一并更正。有很多地方是自己的理解，可能并不正确。
+
 
 ```r
-GDS43013 <- read.table("./data/GDS4013_2015.txt",header = T)
+GDS43013 <- read.table("./data/GDS4013.txt",header = T)
 GDS43013_sample <- read.table("./data/GDS4013_sample.txt",header = F)
 methylation <- read.table("./data/methylation.txt",header = F)
 #(1)
@@ -1109,8 +1157,8 @@ table(is.na(GDS43013))
 
 ```
 ## 
-##  FALSE 
-## 481698
+##  FALSE   TRUE 
+## 481694      4
 ```
 
 ```r
@@ -1124,111 +1172,106 @@ table(is.na(methylation))
 ```
 
 ```r
-# 这里没有缺失值，有缺失值的话用na.omit(GDS43013)即可。
+GDS43013 <- na.omit(GDS43013)
+
+# 这里采用limma包
 library(limma)
 GDS_norm <- normalizeQuantiles(GDS43013) # 数据标准化
 ```
+
+
 
 (2) Find differentially expressed genes (up-regulated, HF>LF) between LF and HF samples, and list the top 20 up-regulated genes.Which statistical test should be used here?
 
 
 ```r
-#(2)
-t_test <- function(x) {
-  x <- unlist(x)
-  if (var.test(x[1:10],x[11:18])$p.value < 0.05) {
-    t.test(x[1:10],x[11:18],var.equal = F,alternative = "less")$p.value
-  }else {
-    t.test(x[1:10],x[11:18],var.equal = T,alternative = "less")$p.value
-  }
-}
-GDS43013$pvalue <- apply(GDS43013,1,t_test)
-rownames(GDS43013)[order(GDS43013$pvalue)[1:20]]
+#先计算var.test结果，放在最后一列
+p.var <- apply(GDS_norm,1, function(x) var.test(x[1:10],x[11:18])$p.value)
+GDS_norm <- cbind(GDS_norm,p.var)
+#	LF:	x[1:10]	HF:	x[11:18];HF>LF,	LF<HF
+#	var.test result	in	x[19]
+p.t	<-apply(GDS_norm,1,function(x)t.test(x[1:10],x[11:18],alternative=c("less"),var.equal	=x[19]>=0.05)$p.value)
+table(p.t<0.05)
 ```
 
 ```
-##  [1] "SEMA5B"        "BC048403"      "PMPCB"         "CES2E"        
-##  [5] "GSTK1"         "SEMA4D"        "LAMB3"         "4921518J05RIK"
-##  [9] "HSD17B4"       "PEX13"         "LIAS"          "PSTPIP1"      
-## [13] "LOC100504952"  "MTNR1A"        "PARK7"         "CLSTN3"       
-## [17] "OCIAD2"        "DEFB35"        "HEXDC"         "FABP2"
+## 
+## FALSE  TRUE 
+## 24948  1809
 ```
-(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the 
-DEGs, and use t-test to check it.
 
 ```r
-set.seed(20190614)
+names(sort(p.t)[1:20])
+```
+
+```
+##  [1] "SEMA5B"        "BC048403"      "CES2E"         "GSTK1"        
+##  [5] "PMPCB"         "SEMA4D"        "LAMB3"         "PSTPIP1"      
+##  [9] "4921518J05RIK" "LIAS"          "PEX13"         "MTNR1A"       
+## [13] "OCIAD2"        "CLSTN3"        "5330427O13RIK" "NDUFS4"       
+## [17] "HSD17B4"       "FABP2"         "TPM2"          "STC2"
+```
+
+(3) You have the methylation data in normal state liver tissues fo each gene from another study (methylation.txt). You want to know whether the methylation levels of the differentially expressed genes (DEGs) are different from other genes in normal state. Please randomly choose the same number of genes as that of the DEGs, and use t-test to check it.
+
+```r
+set.seed(614)
 # 注意是随机抽样，每个人的结果可能有不同的地方。
-deg <- sample(rownames(GDS43013[GDS43013$pvalue < 0.05,]),size = 20)
-ndeg <- sample(rownames(GDS43013[GDS43013$pvalue > 0.05,]),size = 20)
-deg <- data.frame(name = deg,meth = 
-                    methylation$V2[match(deg,methylation$V1)])
-ndeg <- data.frame(name = ndeg,meth =
-                   methylation$V2[match(ndeg,methylation$V1)])
-var.test(deg$meth,ndeg$meth)
-```
-
-```
-## 
-## 	F test to compare two variances
-## 
-## data:  deg$meth and ndeg$meth
-## F = 2.6794, num df = 19, denom df = 19, p-value = 0.03754
-## alternative hypothesis: true ratio of variances is not equal to 1
-## 95 percent confidence interval:
-##  1.060535 6.769346
-## sample estimates:
-## ratio of variances 
-##            2.67939
-```
-
-```r
-t.test(deg$meth,ndeg$meth,var.equal = var.test(deg$meth,ndeg$meth)$p.value	>=	0.05) #根据方差齐性检验做t-test。
+DEG_name<-sample(names(p.t[p.t<0.05]),100)
+non_DEG_name<-sample(names(p.t[p.t>0.05]),100)
+methy_DEG<-methylation[methylation$V1 %in% DEG_name,]
+methy_non_DEG<-methylation[methylation$V1 %in% non_DEG_name,]
+t.test(methy_DEG$V2,methy_non_DEG$V2,var.equal =(var.test(methy_DEG$V2,methy_non_DEG$V2)$p.value >= 0.05)) 
 ```
 
 ```
 ## 
 ## 	Welch Two Sample t-test
 ## 
-## data:  deg$meth and ndeg$meth
-## t = 2.19, df = 31.448, p-value = 0.03606
+## data:  methy_DEG$V2 and methy_non_DEG$V2
+## t = 4.4984, df = 186.75, p-value = 1.201e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01194761 0.33315141
+##  0.07469472 0.19138251
 ## sample estimates:
 ## mean of x mean of y 
-## 0.5849530 0.4124035
+## 0.5391043 0.4060657
 ```
 
+```r
+#根据方差齐性检验做t-test。
+```
+
+>这里的randomly choose the same number of genes as that of the DEGs我个人认为是你自己指定一个样本量来抽样，不然把差异基因全抽出来也不叫抽样了。
 
 (4) Please provide the power of t-test used in (3). (hint : this is two independent samples, so use pooled variance when you calculate the absolute effect size)
 
 
 ```r
 #(4)
-pooled.sd <- function(data){
-  p <- length(table(data$g))
-  n.g <- table(data$g)
-  sd.g <- aggregate(data$y,by=list(data$g),sd)[,2]
-  sqrt(sum((n.g - 1) * sd.g^2)/(sum(n.g) - p))
-}
-data <- data.frame(y = c(deg$meth,ndeg$meth),
-                   g = c(rep("deg",20),rep("ndeg",20)))
-delta <- mean(deg$met) - mean(ndeg$meth) / pooled.sd(data)
-power.t.test(n = 20,delta = mean(deg$met) - mean(ndeg$meth),
-             sd = pooled.sd(data),
-             sig.level = 0.05)
+n1 <- length(methy_DEG$V2)
+var1 <-	var(methy_DEG$V2)
+n2	<- length(methy_non_DEG$V2)
+var2 <-	var(methy_non_DEG$V2)
+
+# pooled variance即合并方差,参见后面公式。
+pool_var <-	((n1-1)	*var1+(n2-1)*var2)/(n1+n2-2)
+# 计算power。其中效应值 = (d1-d2)/sd
+# 根据混池计算效应值
+ds <- (mean(methy_DEG$V2)-mean(methy_non_DEG$V2))/sqrt(pool_var)
+library(pwr)
+powers <-pwr.t.test(n=100,d=ds,sig.level=0.05,type="two.sample",alternative="two.sided")
+powers
 ```
 
 ```
 ## 
 ##      Two-sample t test power calculation 
 ## 
-##               n = 20
-##           delta = 0.1725495
-##              sd = 0.2491581
+##               n = 100
+##               d = 0.6361638
 ##       sig.level = 0.05
-##           power = 0.5692488
+##           power = 0.9940732
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group
