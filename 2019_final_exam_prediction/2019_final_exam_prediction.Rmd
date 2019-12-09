@@ -1,0 +1,251 @@
+---
+title: "2019_final_exam_prediction"
+author: "刘栋梁"
+date: "2019年6月20日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+Sys.setlocale('LC_ALL','C')
+```
+
+# Preface
+
+对2019年生统考试数据的预测，主要总结群里大神们的讨论和代码。
+
+注意写原假设、备择假设以及结论。
+
+有错误的地方直接在群里立即指出。
+
+## Question 2
+
+2.在一个抗焦虑症药理学实验中，研究人员测试了三种不同的药物和安慰剂对小鼠行为的影响，统计小鼠啃咬垫料、移动频率多种行为学数据并打分，分数越高则抗焦虑效果越好，结果记录在q2_data.csv中。
+
+请问：
+
+（1）药物的种类是否影响小鼠的表现；
+
+
+用方差分析方法检验药物的种类是否影响小鼠的表现。
+
+$H_{0}$：服用药物的种类不会影响小鼠的表现；
+
+$H_{1}$：至少一种药物影响小鼠的表现。
+
+
+```{r}
+drug <- read.csv("./data/q2_data.csv")
+
+shapiro.test(subset(drug, drug$Treatment=="excitingDrug")$Performance_Scores)
+
+shapiro.test(subset(drug, drug$Treatment=="anxietyDrug")$Performance_Scores)
+
+shapiro.test(subset(drug, drug$Treatment=="hypertensionDrug")$Performance_Scores)
+
+shapiro.test(subset(drug, drug$Treatment=="Placebos")$Performance_Scores)
+
+bartlett.test(Performance_Scores~Treatment, data = drug)
+
+ff <- aov(Performance_Scores~Treatment, data = drug)
+anova(ff)
+```
+
+答：检验结果显示p值小于0.05，因此拒绝原假设，药物的种类会影响小鼠的表现。
+
+这个有可能让你用手算方差分析表。
+
+手算方差分析表：
+
+![](./data/anova.png)
+
+```{r}
+#import data
+anova_data<- read.csv("./data/q2_data.csv",sep=",")
+anova_data$Treatment<-factor(anova_data$Treatment)
+attach(anova_data)
+GrandMean<-mean(Performance_Scores);GrandMean
+SMeans<-aggregate(Performance_Scores,by=list(Treatment),FUN=mean);SMeans 
+# (2) Compute Sum of Squares
+SVars<-aggregate(Performance_Scores,by=list(Treatment),FUN=var);SVars
+SLens<-aggregate(Performance_Scores,by=list(Treatment),FUN=length);SLens
+within_SS <- sum((SLens$x-1)*SVars$x);within_SS
+total_SS <- sum((Performance_Scores-GrandMean)^2);total_SS
+between_SS <- total_SS-within_SS;between_SS
+# (3)Compute Degree of Freedom
+df_between <- length(levels(Treatment))-1;df_between
+df_within <-length(Performance_Scores)-length(levels(Treatment));df_within
+# (4)Compute Mean Square
+between_MS <- between_SS/df_between;between_MS
+within_MS <- within_SS/df_within;within_MS
+# (5)F-ration and p-value
+F_ratio <- between_MS/within_MS;F_ratio
+p_value <-1-pf(F_ratio,df_between,df_within);p_value
+```
+
+(2).如果受药物影响，那么哪一个药物效果最好。
+
+```{r}
+
+# 多重比较
+tukey <- TukeyHSD(ff,ordered = TRUE)
+plot(tukey)
+```
+
+
+答：hypertensionDrug-excitingDrug之间是不显著差异，其他都是显著的。(包含零为不显著)
+
+
+
+## Question 3
+
+>这个相似度是最高的，不过不能确认问题是不是一样。
+
+Many digitized image of a fine needle aspirate (FNA) of a breast mass are collected and computed to predict the diagnosis of breast cancer(q3_BC.txt).
+
+Attribute information
+
+
+1) Diagnosis (1 = malignant, 0 = benign)
+
+
+Ten real-valued features are computed for each cell nucleus:
+
+	a) radius (mean of distances from center to points on the perimeter)
+	
+	b) texture (standard deviation of gray-scale values)
+	
+	c) perimeter
+	
+	d) area
+	
+	e) smoothness (local variation in radius lengths)
+	
+	f) compactness (perimeter^2 / area - 1.0)
+	
+	g) concavity (severity of concave portions of the contour)
+	
+	h) concave points (number of concave portions of the contour)
+	
+	i) symmetry 
+	
+	j) fractal dimension ("coastline approximation" - 1)
+	
+The mean of these features were computed for each image.
+
+>这里和作业不一样，简化了，只取了均值。
+
+All feature values are recorded with four significant digits.
+In total, there are 357 benign and 212 malignant samples.
+
+You may need to use proper regression algorithm to train your data, and make predictions.
+
+Instructions:
+
+1)Use all mean features(such as: radius_mean,texture_mean…) to construct a logistic regression model.
+
+```{r}
+q3_BC <- read.table('./data/q3_BC.txt',header = T)
+fit.full <- glm(diagnosis~.,data = q3_BC,family =  binomial()) # ~.即代表所有模型
+
+summary(fit.full)
+```
+
+>glm.fit:拟合機率算出来是数值零或一:可以直接忽略这个警告。这个问题实际是因为数据集问题，这个数据集本身接近线性可分了，所以导致模型过拟合。具体原因大家自己检索一下吧。可以看看这篇博客：https://www.cnblogs.com/runner-ljt/p/4574275.html。
+
+2)Then try to reduce the number of features from your last model, construct another regression model, and you will need to write down the equation of your logistic regression model(Tips:  $$Logit P = \alpha+\beta_{1}X_{1}+\beta_{2}X_{2}+..+\beta_{p}X_{p}$$)
+
+除去不显著相关的变量。
+```{r}
+fit.reduced<-glm(diagnosis~texture+area+smoothness+concave.points,data = q3_BC,family = binomial())
+summary(fit.reduced)
+```
+
+公式：$Logit P=-23.677816+0.362687x_{texture}+0.010342x_{area}+59.47130x_{smoothness}+76.571210x_{concave.points}$
+
+>注意和odds以及p的公式形式的区别。
+
+3)Use proper test to test the difference between two models
+
+对两个模型进行ANOVA分析。
+
+```{r}
+#H0:两模型无显著差别；HA:两模型有显著差别
+anova(fit.full,fit.reduced,test = "Chisq")
+```
+
+p=0.1122>0.05，两模型无显著差别。
+
+4)You may split the data properly, use part of them to train your regression model and use another part to make predictions. Lastly, you may try to calculate the accuracy of your model.(Tips: To split the data, you can use the first 398 rows as training data, use the last 171 rows as prediction data.The predict function return a value between 0 and 1, 0.~0.5 belong to the first class, and 0.5~1 belong to second class in binary classification problems)
+
+```{r}
+train_data <- q3_BC[1:398,]
+test_data <- q3_BC[399:569,]
+train_fit<-glm(diagnosis~texture+area+smoothness+concave.points,data = train_data,family = binomial())
+summary(train_fit)
+test_data$probe<-predict(train_fit,newdata = test_data,type = "response")
+lables <- test_data$diagnosis
+pred_lables <- ifelse(test_data$probe > 0.5, 1, 0)
+mean(pred_lables==lables)
+```
+
+The accuracy is 0.9064
+
+## Question 4
+
+Alzheimer's Disease (AD) is the most common cause of dementia, a group of brain disorders that results in the loss of intellectual and social skills. These changes are severe enough to interfere with day-to-day life. AD is characterized by the presence of senile plaques and neurofibrillary tangles in cortical regions of the brain. These pathological markers are thought to be responsible for the massive cortical neurodegeneration and concomitant loss of memory, reasoning, and after aberrant behaviors that are seen in patients with AD.
+
+Here we have a gene expression data from normal neurons and neurons containing neurofibrillary tangles of 14 mid-stage AD cases. It can be found in “expression_data.txt”. Column 1-7 of “expression_data.txt” are normal neurons and column 8-14 are neurons with neurofibrillary tangles. Use the information mentioned above to answer the following questions:
+
+a)Use t-test to find significantly differential expression genes between normal and tangle neuron sample (p-value < 0.01). Give the number of differential expressed genes and give the names of significantly differential expression genes.
+
+Hint1: two types of t-test with equal variance and unequal variance are different.
+
+Hint2: “names()” or “rownames()” can be used to extract names of differentially expressed genes.
+
+Hint3: “apply(data,1,function(x){…})” can apply function to every row in data more quickly than “for{}”, so try to use “apply”.
+
+```{r}
+q4_data <- read.table("./data/q4_data.txt", header = T,stringsAsFactors = T)
+#check NA
+table(is.na(q4_data))
+# 个人觉得应该先检查NA，毕竟标签缺失了应该算缺失值。
+exp_matrix <- t(q4_data[2:11]) # t()函数即转置
+colnames(exp_matrix) <- q4_data$Group
+
+# 邮件没有提示用limma包，可能会让我们自己处理标准化。具体是什么标准化方法大家按题目要求做吧。这里简单地除以均值。TIN:总强度标准化方法。
+
+exp_matrix_norm<-apply(exp_matrix,2, function(x){x/mean(x)})
+
+# 计算方差齐性检验的p值
+p.var.test<-apply(exp_matrix_norm,1,function(x) var.test(x[1:161],x[162:346],conf.level = 0.99)$p.value)
+
+# 把p值结果加到数据后面
+exp_matrix_norm_p<- cbind(exp_matrix_norm,p.var.test)
+
+# 注意这边less、greater还是双尾检测需要根据题目来。
+
+# p.t.value	<-	apply(exp_matrix_norm_p,1, function(x) t.test(x[1:161],x[162:346],alternative=c("less"),var.equal	=  x[347]>=0.01)$p.value)
+
+p.t.value	<-	apply(exp_matrix_norm_p,1, function(x) t.test(x[1:161],x[162:346],var.equal	=  x[347]>=0.01)$p.value)
+
+sum(p.t.value<0.01)
+
+sort(p.t.value[p.t.value<0.01])
+
+```
+
+
+
+b)Adjust the p-values in question a) with both “bonferroni” and “fdr” method to find differentially expressed genes (adjusted p-value < 0.01). Give the number of differential expressed genes.
+
+Hint: you can do the adjustment according to the formula, or use “p.adjust()” instead
+
+```{r}
+p.bonf <- p.adjust(p.t.value,'bonferroni')
+sum(p.bonf<0.01)
+sort(p.bonf[p.bonf<0.01])
+p.fdr <- p.adjust(p.t.value,'fdr')
+sum(p.fdr<0.01)
+sort(p.fdr[p.fdr<0.01])
+```
